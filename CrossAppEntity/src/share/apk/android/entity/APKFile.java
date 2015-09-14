@@ -9,34 +9,35 @@ import share.apk.android.exceptions.NegativeValueException;
 public class APKFile extends ApkShareFile {
 	String packageName;
 	long versionCode;
-	String versionName;
+	String appVersionName;
 
 	public String getPackageName() {
 		return packageName;
 	}
 
 	public void setPackageName(String packageName) throws EmptyStringException {
-		if (packageName.equals("")) {
+		if (!packageName.equals("")) {
 			this.packageName = packageName;
 		} else {
 			throw new EmptyStringException("Package Name cannot be empty");
 		}
 	}
 
-	public String getVersionName() {
-		return versionName;
+	public long getVersionCode() {
+		return versionCode;
 	}
 
-	public void setVersionName(String versionName) throws EmptyStringException {
-		if (versionName.equals("")) {
-			this.versionName = versionName;
+	public String getAppVersionName() {
+		return appVersionName;
+	}
+
+	public void setAppVersionName(String appVersionName)
+			throws EmptyStringException {
+		if (!appVersionName.equals("")) {
+			this.appVersionName = appVersionName;
 		} else {
 			throw new EmptyStringException("Version Name cannot be empty");
 		}
-	}
-
-	public long getVersionCode() {
-		return versionCode;
 	}
 
 	public void setVersionCode(long versionCode) throws NegativeValueException {

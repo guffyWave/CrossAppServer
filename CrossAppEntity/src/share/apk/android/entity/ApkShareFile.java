@@ -36,7 +36,7 @@ public abstract class ApkShareFile {
 	}
 
 	public void setFileURI(String fileURI) throws EmptyStringException {
-		if (fileURI.equals("")) {
+		if (!fileURI.equals("")) {
 			this.fileURI = fileURI;
 		} else {
 			throw new EmptyStringException("File URI cannot be empty");
@@ -60,7 +60,7 @@ public abstract class ApkShareFile {
 	}
 
 	public void setFileName(String fileName) throws EmptyStringException {
-		if (fileName.equals("")) {
+		if (!fileName.equals("")) {
 			this.fileName = fileName;
 		} else {
 			throw new EmptyStringException("File name cannot be empty");

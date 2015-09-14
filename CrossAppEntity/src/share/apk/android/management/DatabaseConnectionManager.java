@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 public class DatabaseConnectionManager {
@@ -16,7 +17,10 @@ public class DatabaseConnectionManager {
 			.getName());
 
 	private DatabaseConnectionManager() throws HibernateException {
-		sessionFactory = new Configuration().configure().buildSessionFactory();
+		Configuration configuration = new Configuration().configure();
+		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
+				.applySettings(configuration.getProperties());
+		sessionFactory = configuration.buildSessionFactory(builder.build());
 	}
 
 	public static DatabaseConnectionManager getInstance() {

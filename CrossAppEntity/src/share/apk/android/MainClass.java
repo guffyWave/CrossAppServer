@@ -21,14 +21,14 @@ public class MainClass {
 		ApkShareUser asu = new ApkShareUser();
 		asu.setEmailID("gufran.khurshid@gmail.com");
 		asu.setGcmID("blah blah");
-		asu.setPhoneNumber("+874577483");
+		asu.setPhoneNumber("+917457748354");
 		asu.setUserActivationStatus(false);
 
 		// /---> create user 2
 		ApkShareUser asu2 = new ApkShareUser();
 		asu2.setEmailID("salman.khurshid@gmail.com");
 		asu2.setGcmID("ohohohhohohoho");
-		asu2.setPhoneNumber("+89894828");
+		asu2.setPhoneNumber("+918948284582");
 		asu2.setUserActivationStatus(true);
 
 		// /---> create an APK File
@@ -38,7 +38,7 @@ public class MainClass {
 		apkFile.setFileURI("/User/apks/asshole.apk");
 		apkFile.setPackageName("com.android.asshole");
 		apkFile.setVersionCode(3);
-		apkFile.setVersionName("Chatur Version");
+		apkFile.setAppVersionName("Chatur Version");
 
 		// /---> create a file packet and attach APK to it
 		FilePacket fp = new FilePacket();

@@ -19,7 +19,7 @@ public class ApkShareMessage {
 	}
 
 	public void setMessage(String message) throws EmptyStringException {
-		if (message.equals("")) {
+		if (!message.equals("")) {
 			this.message = message;
 		} else {
 			throw new EmptyStringException("Message cannot be empty");
