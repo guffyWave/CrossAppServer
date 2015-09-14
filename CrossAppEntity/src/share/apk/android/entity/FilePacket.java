@@ -3,6 +3,8 @@ package share.apk.android.entity;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
+import share.apk.android.exceptions.NotNullException;
+
 @Entity
 public class FilePacket extends ApkSharePacket {
 	@OneToOne
@@ -12,7 +14,11 @@ public class FilePacket extends ApkSharePacket {
 		return file;
 	}
 
-	public void setFile(ApkShareFile file) {
-		this.file = file;
+	public void setFile(ApkShareFile file) throws NotNullException {
+		if (file != null) {
+			this.file = file;
+		} else {
+			throw new NotNullException("APK File cannot be null");
+		}
 	}
 }

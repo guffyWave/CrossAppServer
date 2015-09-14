@@ -9,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import share.apk.android.exceptions.EmptyStringException;
+import share.apk.android.exceptions.NegativeValueException;
+
 @Entity
 public abstract class ApkShareFile {
 	@Id
@@ -32,24 +35,36 @@ public abstract class ApkShareFile {
 		return fileURI;
 	}
 
-	public void setFileURI(String fileURI) {
-		this.fileURI = fileURI;
+	public void setFileURI(String fileURI) throws EmptyStringException {
+		if (fileURI.equals("")) {
+			this.fileURI = fileURI;
+		} else {
+			throw new EmptyStringException("File URI cannot be empty");
+		}
 	}
 
 	public long getFileSize() {
 		return fileSize;
 	}
 
-	public void setFileSize(long fileSize) {
-		this.fileSize = fileSize;
+	public void setFileSize(long fileSize) throws NegativeValueException {
+		if (fileSize >= 0) {
+			this.fileSize = fileSize;
+		} else {
+			throw new NegativeValueException("File size  cannot be negative.");
+		}
 	}
 
 	public String getFileName() {
 		return fileName;
 	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setFileName(String fileName) throws EmptyStringException {
+		if (fileName.equals("")) {
+			this.fileName = fileName;
+		} else {
+			throw new EmptyStringException("File name cannot be empty");
+		}
 	}
 
 	public List<String> getTags() {

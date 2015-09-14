@@ -1,14 +1,11 @@
 package share.apk.android;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.hibernate.Session;
 
 import share.apk.android.entity.APKFile;
 import share.apk.android.entity.ApkShareMessage;
-import share.apk.android.entity.ApkSharePacket;
 import share.apk.android.entity.ApkShareStatus;
 import share.apk.android.entity.ApkShareUser;
 import share.apk.android.entity.FilePacket;
@@ -41,7 +38,7 @@ public class MainClass {
 		apkFile.setFileURI("/User/apks/asshole.apk");
 		apkFile.setPackageName("com.android.asshole");
 		apkFile.setVersionCode(3);
-		apkFile.setVesrionName("Chatur Version");
+		apkFile.setVersionName("Chatur Version");
 
 		// /---> create a file packet and attach APK to it
 		FilePacket fp = new FilePacket();

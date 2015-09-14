@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import share.apk.android.exceptions.EmptyStringException;
+
 @Entity
 public class ApkShareMessage {
 	@Id
@@ -16,8 +18,12 @@ public class ApkShareMessage {
 		return message;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setMessage(String message) throws EmptyStringException {
+		if (message.equals("")) {
+			this.message = message;
+		} else {
+			throw new EmptyStringException("Message cannot be empty");
+		}
 	}
 
 }
