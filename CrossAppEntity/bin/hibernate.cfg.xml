@@ -40,6 +40,7 @@
 		<!-- Names the annotated entity class -->
 		<mapping class="share.apk.android.entity.ApkShareFile" />
 		<mapping class="share.apk.android.entity.APKFile" />
+		<mapping class="share.apk.android.entity.ApkShareMessage" />
 		<mapping class="share.apk.android.entity.ApkSharePacket" />
 		<mapping class="share.apk.android.entity.ApkShareUser" />
 		<mapping class="share.apk.android.entity.FilePacket" />

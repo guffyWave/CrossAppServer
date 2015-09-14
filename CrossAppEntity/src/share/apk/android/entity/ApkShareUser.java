@@ -3,11 +3,17 @@ package share.apk.android.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+
+import share.apk.android.exceptions.EmailIDException;
+import share.apk.android.exceptions.PhoneNumberException;
 
 @Entity
 public class ApkShareUser {
@@ -19,7 +25,11 @@ public class ApkShareUser {
 	String gcmID;
 	boolean userActivationStatus;
 	@OneToMany
-	List<ApkSharePacket> sharePackets = new ArrayList<ApkSharePacket>();
+	@JoinTable(name = "ApkShareUser_InBox")
+	List<ApkSharePacket> inBoxPacketList = new ArrayList<ApkSharePacket>();
+	@OneToMany
+	@JoinTable(name = "ApkShareUser_OutBox")
+	List<ApkSharePacket> outBoxPacketList = new ArrayList<ApkSharePacket>();
 
 	public long getId() {
 		return id;
@@ -29,7 +39,7 @@ public class ApkShareUser {
 		this.id = id;
 	}
 
-	public String getEmailID() {
+	public String getEmailID() throws EmailIDException {
 		return emailID;
 	}
 
@@ -41,7 +51,7 @@ public class ApkShareUser {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) throws PhoneNumberException {
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -61,12 +71,20 @@ public class ApkShareUser {
 		this.userActivationStatus = userActivationStatus;
 	}
 
-	public List<ApkSharePacket> getSharePackets() {
-		return sharePackets;
+	public List<ApkSharePacket> getInBoxPacketList() {
+		return inBoxPacketList;
 	}
 
-	public void setSharePackets(List<ApkSharePacket> sharePackets) {
-		this.sharePackets = sharePackets;
+	public void setInBoxPacketList(List<ApkSharePacket> inBoxPacketList) {
+		this.inBoxPacketList = inBoxPacketList;
+	}
+
+	public List<ApkSharePacket> getOutBoxPacketList() {
+		return outBoxPacketList;
+	}
+
+	public void setOutBoxPacketList(List<ApkSharePacket> outBoxPacketList) {
+		this.outBoxPacketList = outBoxPacketList;
 	}
 
 }

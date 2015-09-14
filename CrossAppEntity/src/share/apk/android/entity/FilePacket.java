@@ -15,5 +15,4 @@ public class FilePacket extends ApkSharePacket {
 	public void setFile(ApkShareFile file) {
 		this.file = file;
 	}
-
 }

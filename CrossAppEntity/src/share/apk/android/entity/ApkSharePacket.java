@@ -1,12 +1,17 @@
 package share.apk.android.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public abstract class ApkSharePacket {
@@ -19,6 +24,8 @@ public abstract class ApkSharePacket {
 	ApkShareUser toUser;
 	@Enumerated(EnumType.STRING)
 	ApkShareStatus fileStatus;
+	@Temporal(TemporalType.TIMESTAMP)
+	Date timeStamp;
 
 	public long getId() {
 		return id;
@@ -50,6 +57,14 @@ public abstract class ApkSharePacket {
 
 	public void setFileStatus(ApkShareStatus fileStatus) {
 		this.fileStatus = fileStatus;
+	}
+
+	public Date getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(Date timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 
 }
