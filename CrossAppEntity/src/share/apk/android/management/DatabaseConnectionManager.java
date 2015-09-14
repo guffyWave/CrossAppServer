@@ -17,10 +17,11 @@ public class DatabaseConnectionManager {
 			.getName());
 
 	private DatabaseConnectionManager() throws HibernateException {
-		Configuration configuration = new Configuration().configure();
-		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-				.applySettings(configuration.getProperties());
-		sessionFactory = configuration.buildSessionFactory(builder.build());
+		// Configuration configuration = new Configuration().configure();
+		// StandardServiceRegistryBuilder builder = new
+		// StandardServiceRegistryBuilder()
+		// .applySettings(configuration.getProperties());
+		// sessionFactory = configuration.buildSessionFactory(builder.build());
 	}
 
 	public static DatabaseConnectionManager getInstance() {
