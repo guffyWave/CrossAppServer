@@ -25,7 +25,7 @@ public abstract class ApkSharePacket {
 	@ManyToOne
 	ApkShareUser toUser;
 	@Enumerated(EnumType.STRING)
-	ApkShareStatus fileStatus;
+	ApkShareStatus status;
 	@Temporal(TemporalType.TIMESTAMP)
 	Date timeStamp;
 
@@ -61,16 +61,15 @@ public abstract class ApkSharePacket {
 		}
 	}
 
-	public ApkShareStatus getFileStatus() {
-		return fileStatus;
+	public ApkShareStatus getStatus() {
+		return status;
 	}
 
-	public void setFileStatus(ApkShareStatus fileStatus)
-			throws NotNullException {
+	public void setStatus(ApkShareStatus fileStatus) throws NotNullException {
 		if (fileStatus != null && !fileStatus.equals("")) {
-			this.fileStatus = fileStatus;
+			this.status = status;
 		} else {
-			throw new NotNullException("File Status cannot be null or empty");
+			throw new NotNullException("Status cannot be null or empty");
 		}
 	}
 

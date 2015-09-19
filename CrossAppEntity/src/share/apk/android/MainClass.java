@@ -45,9 +45,8 @@ public class MainClass {
 		fp.setFromUser(asu);
 		fp.setToUser(asu2);
 		fp.setFile(apkFile);
-		fp.setFileStatus(ApkShareStatus.DELIVERED);
+		fp.setStatus(ApkShareStatus.DELIVERED);
 		fp.setTimeStamp(new Date());
-		
 
 		// user 1 --> user 2 // user 1 sent an APK to user 2
 
@@ -66,7 +65,7 @@ public class MainClass {
 		mp.setFromUser(asu2);
 		mp.setToUser(asu);
 		mp.setApkShareMessage(apkShareMessage);
-		mp.setFileStatus(ApkShareStatus.DELIVERED);
+		mp.setStatus(ApkShareStatus.DELIVERED);
 		mp.setTimeStamp(new Date());
 
 		// user 2 --> user 1 // user 2 sent a message to user 1
