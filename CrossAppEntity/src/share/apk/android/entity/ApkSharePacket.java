@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,9 +20,9 @@ public abstract class ApkSharePacket {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	long id;
-	@OneToOne
+	@ManyToOne
 	ApkShareUser fromUser;
-	@OneToOne
+	@ManyToOne
 	ApkShareUser toUser;
 	@Enumerated(EnumType.STRING)
 	ApkShareStatus fileStatus;
