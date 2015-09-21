@@ -7,7 +7,6 @@ import share.apk.server.exceptions.EmptyStringException;
 import share.apk.server.exceptions.FileException;
 import share.apk.server.exceptions.NegativeValueException;
 import share.apk.server.exceptions.NoSuchIDException;
-import share.apk.server.exceptions.UserException;
 
 public interface ApkShareFileDAO {
 

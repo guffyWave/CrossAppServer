@@ -306,11 +306,11 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 			} else {
 				Session s = sessionFactory.getCurrentSession();
 				s.beginTransaction();
-				apkShareUser.getFacebookCredential()
-						.setFacebookID(goolgePlusID);
-				apkShareUser
-						.getFacebookCredential()
-						.setFacebookOAuthAccessToken(googlePlusOAuthAccessToken);
+				apkShareUser.getGoolgePlusCredential().setGoolgePlusID(
+						goolgePlusID);
+				apkShareUser.getGoolgePlusCredential()
+						.setGoolgePlusOAuthAccessToken(
+								googlePlusOAuthAccessToken);
 				s.update(apkShareUser);
 				s.getTransaction().commit();
 				return true;
@@ -331,9 +331,9 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 			} else {
 				Session s = sessionFactory.getCurrentSession();
 				s.beginTransaction();
-				apkShareUser.getFacebookCredential().setFacebookID(twitterID);
-				apkShareUser.getFacebookCredential()
-						.setFacebookOAuthAccessToken(twitterOAuthAccessToken);
+				apkShareUser.getTwitterCredential().setTwitterID(twitterID);
+				apkShareUser.getTwitterCredential().setTwitterOAuthAccessToken(
+						twitterOAuthAccessToken);
 				s.update(apkShareUser);
 				s.getTransaction().commit();
 				return true;

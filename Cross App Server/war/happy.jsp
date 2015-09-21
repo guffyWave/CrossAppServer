@@ -7,11 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<h1>Cross App Index JSP Page</h1>
-
-	<form action="/dummyURL" method="post">
-		<input type="submit" value="Hello" />
-	</form>
+	<h1>Happy JSP</h1>
 </body>
 </html>
