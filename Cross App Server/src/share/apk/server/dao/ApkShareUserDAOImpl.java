@@ -273,4 +273,74 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 		return errorMessages;
 	}
 
+	@Override
+	public boolean updateUserFacebookCredential(ApkShareUser apkShareUser,
+			String facebookID, String facebookOAuthAccessToken)
+			throws EmptyStringException, UserException {
+		if (apkShareUser != null) {
+			if (facebookID.equals("")) {
+				throw new EmptyStringException("Facebook ID cannot be empty ");
+			} else {
+				Session s = sessionFactory.getCurrentSession();
+				s.beginTransaction();
+				apkShareUser.getFacebookCredential().setFacebookID(facebookID);
+				apkShareUser.getFacebookCredential()
+						.setFacebookOAuthAccessToken(facebookOAuthAccessToken);
+				s.update(apkShareUser);
+				s.getTransaction().commit();
+				return true;
+			}
+		} else {
+			throw new UserException("User cannot be NULL");
+		}
+	}
+
+	@Override
+	public boolean updateUserGooglePlusCredential(ApkShareUser apkShareUser,
+			String goolgePlusID, String googlePlusOAuthAccessToken)
+			throws EmptyStringException, UserException {
+		if (apkShareUser != null) {
+			if (goolgePlusID.equals("")) {
+				throw new EmptyStringException(
+						"Google Plus ID cannot be empty ");
+			} else {
+				Session s = sessionFactory.getCurrentSession();
+				s.beginTransaction();
+				apkShareUser.getFacebookCredential()
+						.setFacebookID(goolgePlusID);
+				apkShareUser
+						.getFacebookCredential()
+						.setFacebookOAuthAccessToken(googlePlusOAuthAccessToken);
+				s.update(apkShareUser);
+				s.getTransaction().commit();
+				return true;
+			}
+		} else {
+			throw new UserException("User cannot be NULL");
+		}
+	}
+
+	@Override
+	public boolean updateUserTwitterCredential(ApkShareUser apkShareUser,
+			String twitterID, String twitterOAuthAccessToken)
+			throws EmptyStringException, UserException {
+		if (apkShareUser != null) {
+			if (twitterID.equals("")) {
+				throw new EmptyStringException(
+						"Google Plus ID cannot be empty ");
+			} else {
+				Session s = sessionFactory.getCurrentSession();
+				s.beginTransaction();
+				apkShareUser.getFacebookCredential().setFacebookID(twitterID);
+				apkShareUser.getFacebookCredential()
+						.setFacebookOAuthAccessToken(twitterOAuthAccessToken);
+				s.update(apkShareUser);
+				s.getTransaction().commit();
+				return true;
+			}
+		} else {
+			throw new UserException("User cannot be NULL");
+		}
+	}
+
 }

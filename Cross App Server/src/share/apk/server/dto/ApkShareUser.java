@@ -3,6 +3,7 @@ package share.apk.server.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,6 +36,12 @@ public class ApkShareUser {
 	@OneToMany
 	@JoinTable(name = "ApkShareUser_OutBox")
 	List<ApkSharePacket> outBoxPacketList = new ArrayList<ApkSharePacket>();
+	@Embedded
+	FacebookCredential facebookCredential;
+	@Embedded
+	GoolgePlusCredential goolgePlusCredential;
+	@Embedded
+	TwitterCredential twitterCredential;
 
 	public long getId() {
 		return id;
@@ -112,6 +119,31 @@ public class ApkShareUser {
 
 	public void setOutBoxPacketList(List<ApkSharePacket> outBoxPacketList) {
 		this.outBoxPacketList = outBoxPacketList;
+	}
+
+	public FacebookCredential getFacebookCredential() {
+		return facebookCredential;
+	}
+
+	public void setFacebookCredential(FacebookCredential facebookCredential) {
+		this.facebookCredential = facebookCredential;
+	}
+
+	public GoolgePlusCredential getGoolgePlusCredential() {
+		return goolgePlusCredential;
+	}
+
+	public void setGoolgePlusCredential(
+			GoolgePlusCredential goolgePlusCredential) {
+		this.goolgePlusCredential = goolgePlusCredential;
+	}
+
+	public TwitterCredential getTwitterCredential() {
+		return twitterCredential;
+	}
+
+	public void setTwitterCredential(TwitterCredential twitterCredential) {
+		this.twitterCredential = twitterCredential;
 	}
 
 }

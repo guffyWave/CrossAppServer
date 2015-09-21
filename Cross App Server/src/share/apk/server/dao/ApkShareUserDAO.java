@@ -33,12 +33,12 @@ public interface ApkShareUserDAO {
 
 	// get a userlist by emailIds
 	public List<ApkShareUser> getApkShareUsers(String... emailIDs)
-			throws UserException,EmptyStringException, EmailIDException;
+			throws UserException, EmptyStringException, EmailIDException;
 
 	// get a userlist by phoneNumbers
 	public List<ApkShareUser> getApkShareUsersByPhoneNumber(
 			String... phoneNumber) throws EmptyStringException,
-			PhoneNumberException,UserException;
+			PhoneNumberException, UserException;
 
 	// add a user by emailID
 	public boolean addUser(String emailID) throws EmptyStringException,
@@ -62,6 +62,21 @@ public interface ApkShareUserDAO {
 
 	// update user for gcmID
 	public boolean updateUserGCMID(ApkShareUser apkShareUser, String gcmID)
+			throws EmptyStringException, UserException;
+
+	// update user facebook credential
+	public boolean updateUserFacebookCredential(ApkShareUser apkShareUser,
+			String facebookID, String facebookOAuthAccessToken)
+			throws EmptyStringException, UserException;
+
+	// update user googleplus credential
+	public boolean updateUserGooglePlusCredential(ApkShareUser apkShareUser,
+			String goolgePlusID, String googlePlusOAuthAccessToken)
+			throws EmptyStringException, UserException;
+
+	// update user twitter credential
+	public boolean updateUserTwitterCredential(ApkShareUser apkShareUser,
+			String twitterID, String twitterOAuthAccessToken)
 			throws EmptyStringException, UserException;
 
 	// // / add packet to inbox
