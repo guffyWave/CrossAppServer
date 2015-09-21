@@ -3,6 +3,7 @@ package share.apk.server.dao;
 import java.util.List;
 
 import share.apk.server.dto.ApkSharePacket;
+import share.apk.server.exceptions.NegativeValueException;
 import share.apk.server.exceptions.PacketException;
 
 public interface ApkSharePacketDAO {
@@ -23,7 +24,8 @@ public interface ApkSharePacketDAO {
 			throws PacketException;
 
 	// get packet by id
-	public ApkSharePacket getPacket(long id) throws PacketException;
+	public ApkSharePacket getPacket(long id) throws NegativeValueException,
+			PacketException;
 
 	// ---Low priority---- get to_user of packet
 

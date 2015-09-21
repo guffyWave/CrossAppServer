@@ -7,6 +7,7 @@ import share.apk.server.exceptions.EmptyStringException;
 import share.apk.server.exceptions.FileException;
 import share.apk.server.exceptions.NegativeValueException;
 import share.apk.server.exceptions.NoSuchIDException;
+import share.apk.server.exceptions.UserException;
 
 public interface ApkShareFileDAO {
 
@@ -27,7 +28,7 @@ public interface ApkShareFileDAO {
 
 	// update a ApkShareFile fileName
 	public boolean updateApkShareFileName(ApkShareFile apkShareFile,
-			String newFileName);
+			String newFileName) throws FileException, EmptyStringException;
 
 	// update a ApkShareFile fileUri
 	public boolean updateApkShareFileURI(ApkShareFile apkShareFile,

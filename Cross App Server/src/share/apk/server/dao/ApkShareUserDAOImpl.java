@@ -110,17 +110,51 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 
 	@Override
 	public List<ApkShareUser> getApkShareUsers(String... emailIDs)
-			throws UserException {
+			throws UserException, EmptyStringException, EmailIDException {
+		// check for email IDs
+		for (String emailID : emailIDs) {
+			if (emailID.equals("")) {
+				throw new EmptyStringException("Empty Email ID Supplied "
+						+ emailID);
+			} else {
+				if (!new EmailValidator().validate(emailID)) {
+					throw new EmptyStringException("Invalid Email ID "
+							+ emailID);
+				}
+			}
+		}
 
-		return null;
+		Session s = sessionFactory.getCurrentSession();
+		s.beginTransaction();
+		Criteria criteria = s.createCriteria(ApkShareUser.class);
+		criteria.add(Restrictions.in("emailID", emailIDs));
+
+		s.getTransaction().commit();
+
+		return criteria.list();
+
 	}
 
 	@Override
 	public List<ApkShareUser> getApkShareUsersByPhoneNumber(
-			String... phoneNumber) throws EmptyStringException,
+			String... phoneNumbers) throws EmptyStringException,
 			PhoneNumberException {
-		// TODO Auto-generated method stub
-		return null;
+		// check for email IDs
+		for (String phoneNumber : phoneNumbers) {
+			if (phoneNumber.equals("")) {
+				throw new EmptyStringException("Empty Email ID Supplied "
+						+ phoneNumber);
+			}
+		}
+
+		Session s = sessionFactory.getCurrentSession();
+		s.beginTransaction();
+		Criteria criteria = s.createCriteria(ApkShareUser.class);
+		criteria.add(Restrictions.in("phoneNumber", phoneNumbers));
+
+		s.getTransaction().commit();
+
+		return criteria.list();
 	}
 
 	@Override

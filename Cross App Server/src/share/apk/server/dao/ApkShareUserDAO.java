@@ -33,12 +33,12 @@ public interface ApkShareUserDAO {
 
 	// get a userlist by emailIds
 	public List<ApkShareUser> getApkShareUsers(String... emailIDs)
-			throws UserException;
+			throws UserException,EmptyStringException, EmailIDException;
 
 	// get a userlist by phoneNumbers
 	public List<ApkShareUser> getApkShareUsersByPhoneNumber(
 			String... phoneNumber) throws EmptyStringException,
-			PhoneNumberException;
+			PhoneNumberException,UserException;
 
 	// add a user by emailID
 	public boolean addUser(String emailID) throws EmptyStringException,
