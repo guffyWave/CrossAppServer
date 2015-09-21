@@ -17,18 +17,18 @@ public interface ApkShareUserDAO {
 
 	// get a user by id
 	public ApkShareUser getApkShareUser(long id) throws NoSuchIDException,
-			UserException;
+			UserException, NegativeValueException;
 
 	// get a user by emailId
 	public ApkShareUser getApkShareUser(String emailID)
-			throws EmailIDException, EmptyStringException;
+			throws EmailIDException, EmptyStringException, UserException;
 
 	// get a user by phoneNumber
 	public ApkShareUser getApkShareUserByPhoneNumber(String phoneNumber)
 			throws EmptyStringException, EmailIDException, UserException;
 
 	// get a userlist by ids
-	public List<ApkShareUser> getApkShareUsers(long... ids)
+	public List<ApkShareUser> getApkShareUsers(Long... ids)
 			throws NegativeValueException, NoSuchIDException;
 
 	// get a userlist by emailIds

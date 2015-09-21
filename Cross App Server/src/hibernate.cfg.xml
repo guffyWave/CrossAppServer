@@ -10,12 +10,12 @@
 	<session-factory>
 
 		<!-- Database connection settings -->
-		<!-- <property name="connection.driver_class">com.google.appengine.api.rdbms.AppEngineDriver</property> 
-			<property name="connection.url">jdbc:google:rdbms://babesbabesapp:db1/BabesBabesDatabase</property> -->
-		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/StudentDB</property>
+		<property name="connection.driver_class">com.google.appengine.api.rdbms.AppEngineDriver</property>
+		<property name="connection.url">jdbc:google:rdbms://babesbabesapp:db1/StudentDB</property>
+		<!-- <property name="connection.driver_class">com.mysql.jdbc.Driver</property> 
+			<property name="connection.url">jdbc:mysql://localhost:3306/StudentDB</property> -->
 		<property name="connection.username">root</property>
-		<property name="connection.password">babu1267</property>
+		<property name="connection.password"></property>
 
 
 		<!-- JDBC connection pool (use the built-in) -->
@@ -37,7 +37,12 @@
 
 
 		<!-- Names the annotated entity class -->
-		<mapping class="com.app.study.dto.Student" />
-	</session-factory>
+		<mapping class="share.apk.server.dto.ApkShareUser" />
+		<mapping class="share.apk.server.dto.ApkShareFile" />
+		<mapping class="share.apk.server.dto.ApkSharMessage" />
+		<mapping class="share.apk.server.dto.ApkSharePacket" />
+		<mapping class="share.apk.server.dto.MessagePacket" />
+		<mapping class="share.apk.server.dto.FilePacket" />
+		<mapping class="share.apk.server.dto.APKFile" />
 
 </hibernate-configuration>
