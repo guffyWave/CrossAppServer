@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate 4"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/Spring"/>
+	<classpathentry exported="true" kind="lib" path="/home/gufran/Libraries/mysql-connector-java-5.1.18-bin.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/gufran/Libraries/Apache Commons /commons-dbcp2-2.1.1/commons-dbcp2-2.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/gufran/Libraries/Apache Commons /commons-pool2-2.4.2/commons-pool2-2.4.2.jar"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>
