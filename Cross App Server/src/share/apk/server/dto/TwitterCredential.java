@@ -1,9 +1,9 @@
 package share.apk.server.dto;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 
-@Embeddable
-public class TwitterCredential {
+@Entity
+public class TwitterCredential extends SocialCredential {
 	String twitterID;
 	String twitterOAuthAccessToken;
 

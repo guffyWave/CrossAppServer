@@ -2,6 +2,9 @@ package share.apk.server.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
+
+import share.apk.server.dto.ApkSharePacket;
 import share.apk.server.dto.ApkShareUser;
 import share.apk.server.exceptions.EmailIDException;
 import share.apk.server.exceptions.EmptyStringException;
@@ -40,6 +43,8 @@ public interface ApkShareUserDAO {
 			String... phoneNumber) throws EmptyStringException,
 			PhoneNumberException, UserException;
 
+	public boolean addUser(ApkShareUser asu) throws UserException;
+
 	// add a user by emailID
 	public boolean addUser(String emailID) throws EmptyStringException,
 			EmailIDException;
@@ -64,20 +69,22 @@ public interface ApkShareUserDAO {
 	public boolean updateUserGCMID(ApkShareUser apkShareUser, String gcmID)
 			throws EmptyStringException, UserException;
 
-	// update user facebook credential
-	public boolean updateUserFacebookCredential(ApkShareUser apkShareUser,
-			String facebookID, String facebookOAuthAccessToken)
-			throws EmptyStringException, UserException;
-
-	// update user googleplus credential
-	public boolean updateUserGooglePlusCredential(ApkShareUser apkShareUser,
-			String goolgePlusID, String googlePlusOAuthAccessToken)
-			throws EmptyStringException, UserException;
-
-	// update user twitter credential
-	public boolean updateUserTwitterCredential(ApkShareUser apkShareUser,
-			String twitterID, String twitterOAuthAccessToken)
-			throws EmptyStringException, UserException;
+	/*
+	 * // update user facebook credential public boolean
+	 * updateUserFacebookCredential(ApkShareUser apkShareUser, String
+	 * facebookID, String facebookOAuthAccessToken) throws EmptyStringException,
+	 * UserException;
+	 * 
+	 * // update user googleplus credential public boolean
+	 * updateUserGooglePlusCredential(ApkShareUser apkShareUser, String
+	 * goolgePlusID, String googlePlusOAuthAccessToken) throws
+	 * EmptyStringException, UserException;
+	 * 
+	 * // update user twitter credential public boolean
+	 * updateUserTwitterCredential(ApkShareUser apkShareUser, String twitterID,
+	 * String twitterOAuthAccessToken) throws EmptyStringException,
+	 * UserException;
+	 */
 
 	// // / add packet to inbox
 	// public boolean addInBoxPacket(ApkShareUser apkShareUser,

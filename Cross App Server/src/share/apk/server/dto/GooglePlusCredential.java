@@ -1,9 +1,9 @@
 package share.apk.server.dto;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 
-@Embeddable
-public class GoolgePlusCredential {
+@Entity
+public class GooglePlusCredential extends SocialCredential {
 	String goolgePlusID;
 	String goolgePlusOAuthAccessToken;
 

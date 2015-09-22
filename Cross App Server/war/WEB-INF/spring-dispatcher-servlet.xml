@@ -15,7 +15,7 @@
 	<mvc:annotation-driven />
 	<context:component-scan base-package="
 	share.apk.server.controller" />
-	
+
 
 	<!-- Index or Welcome page -->
 	<mvc:view-controller path="/" view-name="index" />
@@ -30,15 +30,19 @@
 	<!-- Hibernate 4 SessionFactory Bean definition -->
 
 	<!-- The Data Source -->
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+		<property name="driverClassName" value="com.google.appengine.api.rdbms.AppEngineDriver" 
+		/> <property name="url" value="jdbc:google:rdbms://babesbabesapp:db1/APKShareDB" 
+		/> <property name="username" value="root" /> <property name="password" value="" 
+		/> </bean> -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName"
-			value="com.google.appengine.api.rdbms.AppEngineDriver" />
-		<property name="url"
-			value="jdbc:google:rdbms://babesbabesapp:db1/StudentDB" />
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/APKShareDB" />
 		<property name="username" value="root" />
-		<property name="password" value="" />
+		<property name="password" value="babu1267" />
 	</bean>
+
 
 
 	<!-- Session Factory -->
@@ -54,7 +58,7 @@
 		p:sessionFactory-ref="sessionFactory"> </bean> -->
 
 	<!-- DAO -->
-	<bean id="userDAO" class="share.apk.server.dao.ApkShareUserDAO">
+	<bean id="apkShareUserDAO" class="share.apk.server.dao.ApkShareUserDAOImpl">
 		<constructor-arg>
 			<ref bean="sessionFactory" />
 		</constructor-arg>

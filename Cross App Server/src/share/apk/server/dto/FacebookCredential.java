@@ -1,9 +1,9 @@
 package share.apk.server.dto;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 
-@Embeddable
-public class FacebookCredential {
+@Entity
+public class FacebookCredential extends SocialCredential {
 	String facebookID;
 	String facebookOAuthAccessToken;
 
