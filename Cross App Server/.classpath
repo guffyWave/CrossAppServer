@@ -10,5 +10,6 @@
 	<classpathentry exported="true" kind="lib" path="/home/gufran/Libraries/Apache Commons /commons-pool2-2.4.2/commons-pool2-2.4.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="/home/gufran/Libraries/Apache Commons /commons-logging-1.2/commons-logging-1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="/home/gufran/Libraries/GSON/google-gson-2.2.4/gson-2.2.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/gufran/Libraries/AOP/aopalliance-1.0.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

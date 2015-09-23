@@ -6,7 +6,6 @@ import share.apk.server.exceptions.EmptyStringException;
 import share.apk.server.exceptions.NegativeValueException;
 
 
-
 @Entity
 public class APKFile extends ApkShareFile {
 	String packageName;
