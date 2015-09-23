@@ -72,8 +72,11 @@
 	</bean>
 
 
-	<!-- TransactionManager <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" 
-		p:sessionFactory-ref="sessionFactory"> </bean> -->
+	<!-- TransactionManager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory">
+	</bean>
 
 
 </beans>

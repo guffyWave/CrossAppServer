@@ -31,8 +31,8 @@ public class DummyController {
 
 		ApkShareUser asu = null;
 		try {
-			apkShareUserDAO.addUser("sajid@gmail.com");
-			asu = apkShareUserDAO.getApkShareUser("sajid@gmail.com");
+			apkShareUserDAO.addUser("junaid@gmail.com");
+			asu = apkShareUserDAO.getApkShareUser("junaid@gmail.com");
 			// /------>> Result
 			map.put("result", ServerResult.SUCCESS);
 			map.put("messsage", "successfully returned shop.");
