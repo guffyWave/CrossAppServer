@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import share.apk.server.dto.ApkSharePacket;
-import share.apk.server.dto.ApkShareUser;
+import share.apk.server.dto.User;
 import share.apk.server.exceptions.EmailIDException;
 import share.apk.server.exceptions.EmptyStringException;
 import share.apk.server.exceptions.NegativeValueException;
@@ -19,31 +19,31 @@ public interface ApkShareUserDAO {
 	public List<String> getErrorMessages();
 
 	// get a user by id
-	public ApkShareUser getApkShareUser(long id) throws NoSuchIDException,
+	public User getApkShareUser(long id) throws NoSuchIDException,
 			UserException, NegativeValueException;
 
 	// get a user by emailId
-	public ApkShareUser getApkShareUser(String emailID)
+	public User getApkShareUser(String emailID)
 			throws EmailIDException, EmptyStringException, UserException;
 
 	// get a user by phoneNumber
-	public ApkShareUser getApkShareUserByPhoneNumber(String phoneNumber)
+	public User getApkShareUserByPhoneNumber(String phoneNumber)
 			throws EmptyStringException, EmailIDException, UserException;
 
 	// get a userlist by ids
-	public List<ApkShareUser> getApkShareUsers(Long... ids)
+	public List<User> getApkShareUsers(Long... ids)
 			throws NegativeValueException, NoSuchIDException;
 
 	// get a userlist by emailIds
-	public List<ApkShareUser> getApkShareUsers(String... emailIDs)
+	public List<User> getApkShareUsers(String... emailIDs)
 			throws UserException, EmptyStringException, EmailIDException;
 
 	// get a userlist by phoneNumbers
-	public List<ApkShareUser> getApkShareUsersByPhoneNumber(
+	public List<User> getApkShareUsersByPhoneNumber(
 			String... phoneNumber) throws EmptyStringException,
 			PhoneNumberException, UserException;
 
-	public boolean addUser(ApkShareUser asu) throws UserException;
+	public boolean addUser(User asu) throws UserException;
 
 	// add a user by emailID
 	public boolean addUser(String emailID) throws EmptyStringException,
@@ -54,19 +54,22 @@ public interface ApkShareUserDAO {
 			throws EmptyStringException, PhoneNumberException;
 
 	// delete user
-	public boolean deleteUser(ApkShareUser apkShareUser) throws UserException;
+	public boolean deleteUser(User apkShareUser) throws UserException;
 
 	// update user for emailId
-	public boolean updateUserEmailID(ApkShareUser apkShareUser, String emailID)
+	public boolean updateUser(User apkShareUser) throws UserException;
+
+	// update user for emailId
+	public boolean updateUserEmailID(User apkShareUser, String emailID)
 			throws EmptyStringException, EmailIDException, UserException;
 
 	// update user for phoneNumber
-	public boolean updateUserPhoneNumber(ApkShareUser apkShareUser,
+	public boolean updateUserPhoneNumber(User apkShareUser,
 			String phoneNumber) throws EmptyStringException,
 			PhoneNumberException, UserException;
 
 	// update user for gcmID
-	public boolean updateUserGCMID(ApkShareUser apkShareUser, String gcmID)
+	public boolean updateUserGCMID(User apkShareUser, String gcmID)
 			throws EmptyStringException, UserException;
 
 	/*

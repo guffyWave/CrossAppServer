@@ -7,7 +7,7 @@ import share.apk.server.exceptions.NegativeValueException;
 
 
 @Entity
-public class APKFile extends ApkShareFile {
+public class APKFile extends File {
 	String packageName;
 	long versionCode;
 	String appVersionName;

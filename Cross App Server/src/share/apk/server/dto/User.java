@@ -3,8 +3,8 @@ package share.apk.server.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,8 +20,9 @@ import share.apk.server.validators.EmailValidator;
 import share.apk.server.validators.PhoneNumberValidator;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "emailID", "gcmID" }))
-public class ApkShareUser {
+@Table(name = "Apk_Share_User", uniqueConstraints = @UniqueConstraint(columnNames = {
+		"emailID", "gcmID" }))
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	long id;
@@ -30,13 +31,13 @@ public class ApkShareUser {
 	String gcmID;
 	// ---->>> userActivationStatus is pending for use
 	boolean userActivationStatus;
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "ApkShareUser_InBox")
 	List<ApkSharePacket> inBoxPacketList = new ArrayList<ApkSharePacket>();
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "ApkShareUser_OutBox")
 	List<ApkSharePacket> outBoxPacketList = new ArrayList<ApkSharePacket>();
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER)
 	List<SocialCredential> credentialsList = new ArrayList<SocialCredential>();
 
 	public long getId() {

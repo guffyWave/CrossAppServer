@@ -13,7 +13,7 @@ import share.apk.server.exceptions.EmptyStringException;
 import share.apk.server.exceptions.NegativeValueException;
 
 @Entity
-public abstract class ApkShareFile {
+public abstract class File {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	long id;

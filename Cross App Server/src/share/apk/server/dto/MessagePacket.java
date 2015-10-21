@@ -8,13 +8,13 @@ import share.apk.server.exceptions.NotNullException;
 @Entity
 public class MessagePacket extends ApkSharePacket {
 	@OneToOne
-	ApkShareMessage apkShareMessage;
+	Message apkShareMessage;
 
-	public ApkShareMessage getApkShareMessage() {
+	public Message getApkShareMessage() {
 		return apkShareMessage;
 	}
 
-	public void setApkShareMessage(ApkShareMessage apkShareMessage)
+	public void setApkShareMessage(Message apkShareMessage)
 			throws NotNullException {
 		if (apkShareMessage != null) {
 			this.apkShareMessage = apkShareMessage;

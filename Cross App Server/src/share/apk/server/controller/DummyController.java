@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import share.apk.server.dao.ApkShareUserDAO;
-import share.apk.server.dto.ApkShareUser;
+import share.apk.server.dto.User;
 import share.apk.server.dto.FacebookCredential;
 import share.apk.server.dto.GooglePlusCredential;
 import share.apk.server.dto.TwitterCredential;
@@ -29,13 +29,23 @@ public class DummyController {
 	Map<String, Object> doWork() {
 		Map<String, Object> map = new LinkedHashMap<String, Object>();
 
-		ApkShareUser asu = null;
+		User asu = null;
 		try {
-			apkShareUserDAO.addUser("junaid@gmail.com");
+
+			//apkShareUserDAO.addUser("junaid@gmail.com");
 			asu = apkShareUserDAO.getApkShareUser("junaid@gmail.com");
+
+			FacebookCredential fb = new FacebookCredential();
+			fb.setFacebookID("99490749289");
+			fb.setFacebookOAuthAccessToken("454hdfg345735sdfhdfH9798772AKJHKUjjjs");
+
+			asu.getCredentialsList().add(fb);
+
+			apkShareUserDAO.updateUser(asu);
+
 			// /------>> Result
 			map.put("result", ServerResult.SUCCESS);
-			map.put("messsage", "successfully returned shop.");
+			map.put("messsage", "Successfully added user ");
 			map.put("user", asu);
 		} catch (Exception e) {
 			map.put("result", ServerResult.EXCEPTION);
@@ -50,9 +60,9 @@ public class DummyController {
 	private void createUser(Map map) throws Exception {
 
 		// --------------->> Creating a User
-		ApkShareUser asu = null;
+		User asu = null;
 		try {
-			asu = new ApkShareUser();
+			asu = new User();
 			asu.setEmailID("guffy1267@gmail.com");
 			asu.setGcmID("ASdfjgi4596fHIUHUU80sdf034udf3hs0HHsfdhdu343AS");
 			asu.setPhoneNumber("+917042935653");
@@ -74,7 +84,7 @@ public class DummyController {
 			asu.getCredentialsList().add(fb);
 
 			apkShareUserDAO.addUser(asu);
-			// /------>> Result
+			// /------->> Result
 			map.put("result", ServerResult.SUCCESS);
 			map.put("messsage", "successfully returned shop.");
 			map.put("user", asu);

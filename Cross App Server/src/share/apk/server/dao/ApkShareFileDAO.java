@@ -2,7 +2,7 @@ package share.apk.server.dao;
 
 import java.util.List;
 
-import share.apk.server.dto.ApkShareFile;
+import share.apk.server.dto.File;
 import share.apk.server.exceptions.EmptyStringException;
 import share.apk.server.exceptions.FileException;
 import share.apk.server.exceptions.NegativeValueException;
@@ -14,31 +14,31 @@ public interface ApkShareFileDAO {
 	public List<String> getErrorMessages();
 
 	// get file by id
-	public ApkShareFile getApkShareFile(long id) throws NoSuchIDException,
+	public File getApkShareFile(long id) throws NoSuchIDException,
 			NegativeValueException, FileException;
 
 	// get file by fileUri
-	public ApkShareFile getApkShareFile(String fileURI)
+	public File getApkShareFile(String fileURI)
 			throws EmptyStringException, FileException;
 
 	// add a ApkShareFile
-	public boolean addApkShareFile(ApkShareFile apkShareFile)
+	public boolean addApkShareFile(File apkShareFile)
 			throws FileException;
 
 	// update a ApkShareFile fileName
-	public boolean updateApkShareFileName(ApkShareFile apkShareFile,
+	public boolean updateApkShareFileName(File apkShareFile,
 			String newFileName) throws FileException, EmptyStringException;
 
 	// update a ApkShareFile fileUri
-	public boolean updateApkShareFileURI(ApkShareFile apkShareFile,
+	public boolean updateApkShareFileURI(File apkShareFile,
 			String newFileURI) throws FileException, EmptyStringException;
 
 	// update a ApkShareFile fileSize
-	public boolean updateApkShareFileSize(ApkShareFile apkShareFile,
+	public boolean updateApkShareFileSize(File apkShareFile,
 			long newFileSize) throws FileException, NegativeValueException;
 
 	// delete a ApkShareFile
-	public boolean deleteApkShareFile(ApkShareFile apkShareFile)
+	public boolean deleteApkShareFile(File apkShareFile)
 			throws FileException;
 
 }

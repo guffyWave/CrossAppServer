@@ -8,13 +8,13 @@ import share.apk.server.exceptions.NotNullException;
 @Entity
 public class FilePacket extends ApkSharePacket {
 	@OneToOne
-	ApkShareFile file;
+	File file;
 
-	public ApkShareFile getFile() {
+	public File getFile() {
 		return file;
 	}
 
-	public void setFile(ApkShareFile file) throws NotNullException {
+	public void setFile(File file) throws NotNullException {
 		if (file != null) {
 			this.file = file;
 		} else {

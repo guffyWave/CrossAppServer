@@ -9,7 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
-import share.apk.server.dto.ApkShareUser;
+import share.apk.server.dto.User;
 import share.apk.server.exceptions.EmailIDException;
 import share.apk.server.exceptions.EmptyStringException;
 import share.apk.server.exceptions.NegativeValueException;
@@ -31,14 +31,14 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 
 	@Transactional
 	@Override
-	public ApkShareUser getApkShareUser(long id) throws NoSuchIDException,
+	public User getApkShareUser(long id) throws NoSuchIDException,
 			UserException, NegativeValueException {
 		if (id <= 0) {
 			throw new NegativeValueException("Negative ID Supplied " + id);
 		}
 		Session s = sessionFactory.getCurrentSession();
 		// //s.beginTransaction();
-		ApkShareUser asu = (ApkShareUser) s.get(ApkShareUser.class, id);
+		User asu = (User) s.get(User.class, id);
 		// //s.getTransaction().commit();
 		if (asu != null) {
 			return asu;
@@ -49,7 +49,7 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 
 	@Override
 	@Transactional
-	public ApkShareUser getApkShareUser(String emailID)
+	public User getApkShareUser(String emailID)
 			throws EmailIDException, EmptyStringException, UserException {
 		if (emailID.equals("")) {
 			throw new EmptyStringException("Email ID cannot be empty ");
@@ -57,16 +57,16 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 			if (!new EmailValidator().validate(emailID)) {
 				throw new EmptyStringException("Invalid Email ID " + emailID);
 			} else {
-				Session s = sessionFactory.openSession();
+				Session s = sessionFactory.getCurrentSession();
 				// if (!s.isOpen()) {
-				// s = sessionFactory.openSession();
+				// s = sessionFactory.getCurrentSession()();
 				// }
 				// s.beginTransaction();
-				Criteria criteria = s.createCriteria(ApkShareUser.class);
+				Criteria criteria = s.createCriteria(User.class);
 				criteria.add(Restrictions.eq("emailID", emailID));
 				// s.getTransaction().commit();
 				if (criteria.list().size() > 0) {
-					return (ApkShareUser) criteria.list().get(0);
+					return (User) criteria.list().get(0);
 				} else {
 					throw new UserException("No User with email ID " + emailID);
 				}
@@ -76,18 +76,18 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 
 	@Transactional
 	@Override
-	public ApkShareUser getApkShareUserByPhoneNumber(String phoneNumber)
+	public User getApkShareUserByPhoneNumber(String phoneNumber)
 			throws EmptyStringException, EmailIDException, UserException {
 		if (phoneNumber.equals("")) {
 			throw new EmptyStringException("Phone Number cannot be empty ");
 		} else {
-			Session s = sessionFactory.openSession();
+			Session s = sessionFactory.getCurrentSession();
 			// s.beginTransaction();
-			Criteria criteria = s.createCriteria(ApkShareUser.class);
+			Criteria criteria = s.createCriteria(User.class);
 			criteria.add(Restrictions.eq("phoneNumber", phoneNumber));
 			// s.getTransaction().commit();
 			if (criteria.list().size() > 0) {
-				return (ApkShareUser) criteria.list().get(0);
+				return (User) criteria.list().get(0);
 			} else {
 				throw new UserException("No User with Phone Number "
 						+ phoneNumber);
@@ -98,7 +98,7 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 	// /---------------------->> pending
 	@Override
 	@Transactional
-	public List<ApkShareUser> getApkShareUsers(Long... ids)
+	public List<User> getApkShareUsers(Long... ids)
 			throws NegativeValueException, NoSuchIDException {
 		// check for IDs
 		for (long id : ids) {
@@ -109,7 +109,7 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 
 		Session s = sessionFactory.getCurrentSession();
 		// s.beginTransaction();
-		Criteria criteria = s.createCriteria(ApkShareUser.class);
+		Criteria criteria = s.createCriteria(User.class);
 		criteria.add(Restrictions.in("id", ids));
 
 		// s.getTransaction().commit();
@@ -119,7 +119,7 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 
 	@Override
 	@Transactional
-	public List<ApkShareUser> getApkShareUsers(String... emailIDs)
+	public List<User> getApkShareUsers(String... emailIDs)
 			throws UserException, EmptyStringException, EmailIDException {
 		// check for email IDs
 		for (String emailID : emailIDs) {
@@ -136,7 +136,7 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 
 		Session s = sessionFactory.getCurrentSession();
 		// s.beginTransaction();
-		Criteria criteria = s.createCriteria(ApkShareUser.class);
+		Criteria criteria = s.createCriteria(User.class);
 		criteria.add(Restrictions.in("emailID", emailIDs));
 
 		// s.getTransaction().commit();
@@ -147,7 +147,7 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 
 	@Override
 	@Transactional
-	public List<ApkShareUser> getApkShareUsersByPhoneNumber(
+	public List<User> getApkShareUsersByPhoneNumber(
 			String... phoneNumbers) throws EmptyStringException,
 			PhoneNumberException {
 		// check for email IDs
@@ -160,7 +160,7 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 
 		Session s = sessionFactory.getCurrentSession();
 		// s.beginTransaction();
-		Criteria criteria = s.createCriteria(ApkShareUser.class);
+		Criteria criteria = s.createCriteria(User.class);
 		criteria.add(Restrictions.in("phoneNumber", phoneNumbers));
 
 		// s.getTransaction().commit();
@@ -170,7 +170,7 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 
 	@Transactional
 	@Override
-	public boolean addUser(ApkShareUser asu) throws UserException {
+	public boolean addUser(User asu) throws UserException {
 		if (asu == null) {
 			throw new UserException("User cannot be NULL");
 		} else {
@@ -192,12 +192,12 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 			if (!new EmailValidator().validate(emailID)) {
 				throw new EmptyStringException("Invalid Email ID " + emailID);
 			} else {
-				Session s = sessionFactory.openSession();
+				Session s = sessionFactory.getCurrentSession();
 				// if (!s.isOpen()) {
-				// s = sessionFactory.openSession();
+				// s = sessionFactory.getCurrentSession()();
 				// }
 				// s.beginTransaction();
-				ApkShareUser asu = new ApkShareUser();
+				User asu = new User();
 				asu.setEmailID(emailID);
 				asu.setGcmID(DefaultValues.NOT_DEFINED.toString());
 				asu.setUserActivationStatus(false);
@@ -217,7 +217,7 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 		} else {
 			Session s = sessionFactory.getCurrentSession();
 			// s.beginTransaction();
-			ApkShareUser asu = new ApkShareUser();
+			User asu = new User();
 			asu.setPhoneNumber(phoneNumber);
 			asu.setGcmID("");
 			asu.setUserActivationStatus(false);
@@ -229,7 +229,7 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 
 	@Override
 	@Transactional
-	public boolean deleteUser(ApkShareUser apkShareUser) throws UserException {
+	public boolean deleteUser(User apkShareUser) throws UserException {
 		if (apkShareUser != null) {
 			Session s = sessionFactory.getCurrentSession();
 			// s.beginTransaction();
@@ -243,7 +243,21 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 
 	@Override
 	@Transactional
-	public boolean updateUserEmailID(ApkShareUser apkShareUser, String emailID)
+	public boolean updateUser(User apkShareUser) throws UserException {
+		if (apkShareUser != null) {
+			Session s = sessionFactory.getCurrentSession();
+			// s.beginTransaction();
+			s.update(apkShareUser);
+			// s.getTransaction().commit();
+			return true;
+		} else {
+			throw new UserException("User cannot be NULL");
+		}
+	}
+
+	@Override
+	@Transactional
+	public boolean updateUserEmailID(User apkShareUser, String emailID)
 			throws EmptyStringException, EmailIDException, UserException {
 		if (apkShareUser != null) {
 			if (emailID.equals("")) {
@@ -263,7 +277,7 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 
 	@Override
 	@Transactional
-	public boolean updateUserPhoneNumber(ApkShareUser apkShareUser,
+	public boolean updateUserPhoneNumber(User apkShareUser,
 			String phoneNumber) throws EmptyStringException,
 			PhoneNumberException, UserException {
 		if (apkShareUser != null) {
@@ -284,7 +298,7 @@ public class ApkShareUserDAOImpl implements ApkShareUserDAO {
 
 	@Override
 	@Transactional
-	public boolean updateUserGCMID(ApkShareUser apkShareUser, String gcmID)
+	public boolean updateUserGCMID(User apkShareUser, String gcmID)
 			throws EmptyStringException, UserException {
 		if (apkShareUser != null) {
 			if (gcmID.equals("")) {

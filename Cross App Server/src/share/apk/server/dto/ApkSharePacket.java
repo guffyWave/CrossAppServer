@@ -20,11 +20,11 @@ public abstract class ApkSharePacket {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	long id;
 	@ManyToOne
-	ApkShareUser fromUser;
+	User fromUser;
 	@ManyToOne
-	ApkShareUser toUser;
+	User toUser;
 	@Enumerated(EnumType.STRING)
-	ApkShareStatus status;
+	Status status;
 	@Temporal(TemporalType.TIMESTAMP)
 	Date timeStamp;
 
@@ -36,11 +36,11 @@ public abstract class ApkSharePacket {
 		this.id = id;
 	}
 
-	public ApkShareUser getFromUser() {
+	public User getFromUser() {
 		return fromUser;
 	}
 
-	public void setFromUser(ApkShareUser fromUser) throws NotNullException {
+	public void setFromUser(User fromUser) throws NotNullException {
 		if (fromUser != null) {
 			this.fromUser = fromUser;
 		} else {
@@ -48,11 +48,11 @@ public abstract class ApkSharePacket {
 		}
 	}
 
-	public ApkShareUser getToUser() {
+	public User getToUser() {
 		return toUser;
 	}
 
-	public void setToUser(ApkShareUser toUser) throws NotNullException {
+	public void setToUser(User toUser) throws NotNullException {
 		if (toUser != null) {
 			this.toUser = toUser;
 		} else {
@@ -60,11 +60,11 @@ public abstract class ApkSharePacket {
 		}
 	}
 
-	public ApkShareStatus getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(ApkShareStatus fileStatus) throws NotNullException {
+	public void setStatus(Status fileStatus) throws NotNullException {
 		if (fileStatus != null && !fileStatus.equals("")) {
 			this.status = status;
 		} else {

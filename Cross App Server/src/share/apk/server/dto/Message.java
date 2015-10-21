@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import share.apk.server.exceptions.EmptyStringException;
 
 @Entity
-public class ApkShareMessage {
+public class Message {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	long id;

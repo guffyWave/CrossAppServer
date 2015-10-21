@@ -42,10 +42,10 @@
 
 
 		<!-- Names the annotated entity class -->
-		<mapping class="share.apk.server.dto.ApkShareUser" />
-		<mapping class="share.apk.server.dto.ApkShareFile" />
-		<mapping class="share.apk.server.dto.ApkShareMessage" />
-		<mapping class="share.apk.server.dto.ApkSharePacket" />
+		<mapping class="share.apk.server.dto.User" />
+		<mapping class="share.apk.server.dto.File" />
+		<mapping class="share.apk.server.dto.Message" />
+		<mapping class="share.apk.server.dto.Packet" />
 		<mapping class="share.apk.server.dto.MessagePacket" />
 		<mapping class="share.apk.server.dto.FilePacket" />
 		<mapping class="share.apk.server.dto.APKFile" />
