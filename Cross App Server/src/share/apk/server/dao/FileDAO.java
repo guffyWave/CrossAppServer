@@ -14,31 +14,31 @@ public interface FileDAO {
 	public List<String> getErrorMessages();
 
 	// get file by id
-	public File getApkShareFile(long id) throws NoSuchIDException,
+	public File getFile(long id) throws NoSuchIDException,
 			NegativeValueException, FileException;
 
 	// get file by fileUri
-	public File getApkShareFile(String fileURI)
+	public File getFile(String fileURI)
 			throws EmptyStringException, FileException;
 
-	// add a ApkShareFile
-	public boolean addApkShareFile(File apkShareFile)
+	// add a File
+	public boolean addFile(File File)
 			throws FileException;
 
-	// update a ApkShareFile fileName
-	public boolean updateApkShareFileName(File apkShareFile,
+	// update a File fileName
+	public boolean updateFileName(File File,
 			String newFileName) throws FileException, EmptyStringException;
 
-	// update a ApkShareFile fileUri
-	public boolean updateApkShareFileURI(File apkShareFile,
+	// update a File fileUri
+	public boolean updateFileURI(File File,
 			String newFileURI) throws FileException, EmptyStringException;
 
-	// update a ApkShareFile fileSize
-	public boolean updateApkShareFileSize(File apkShareFile,
+	// update a File fileSize
+	public boolean updateFileSize(File File,
 			long newFileSize) throws FileException, NegativeValueException;
 
-	// delete a ApkShareFile
-	public boolean deleteApkShareFile(File apkShareFile)
+	// delete a File
+	public boolean deleteFile(File File)
 			throws FileException;
 
 }

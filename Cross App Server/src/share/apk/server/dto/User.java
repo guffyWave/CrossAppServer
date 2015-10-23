@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import share.apk.server.exceptions.EmailIDException;
 import share.apk.server.exceptions.EmptyStringException;
 import share.apk.server.exceptions.PhoneNumberException;
@@ -32,13 +35,13 @@ public class User {
 	String gcmID;
 	// ---->>> userActivationStatus is pending for use
 	boolean userActivationStatus;
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "ApkShareUser_InBox")
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "Cross_App_User_InBox")
 	List<Packet> inBoxPacketList = new ArrayList<Packet>();
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "ApkShareUser_OutBox")
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "Cross_App_User_OutBox")
 	List<Packet> outBoxPacketList = new ArrayList<Packet>();
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	List<SocialCredential> credentialsList = new ArrayList<SocialCredential>();
 
 	public long getId() {

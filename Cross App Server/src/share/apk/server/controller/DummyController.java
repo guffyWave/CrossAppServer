@@ -24,7 +24,7 @@ public class DummyController {
 	@Autowired
 	UserDAO apkShareUserDAO;
 
-	@RequestMapping(value = "/dummyURL", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+	@RequestMapping(value = "/getUser", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public @ResponseBody
 	Map<String, Object> doWork() {
 		Map<String, Object> map = new LinkedHashMap<String, Object>();
@@ -33,19 +33,19 @@ public class DummyController {
 		try {
 
 			// apkShareUserDAO.addUser("junaid@gmail.com");
-			asu = apkShareUserDAO.getApkShareUser("junaid@gmail.com");
+			asu = apkShareUserDAO.getUser("junaid@gmail.com");
 
-			FacebookCredential fb = new FacebookCredential();
-			fb.setFacebookID("99490749289");
-			fb.setFacebookOAuthAccessToken("454hdfg345735sdfhdfH9798772AKJHKUjjjs");
-
-			asu.getCredentialsList().add(fb);
-
-			apkShareUserDAO.updateUser(asu);
+			// FacebookCredential fb = new FacebookCredential();
+			// fb.setFacebookID("00000000");
+			// fb.setFacebookOAuthAccessToken("XXXXXXXXXxxxxxxxxxxxXXXXXXXXXX");
+			//
+			// asu.getCredentialsList().add(fb);
+			//
+			// apkShareUserDAO.updateUser(asu);
 
 			// /------>> Result
 			map.put("result", ServerResult.SUCCESS);
-			map.put("messsage", "Successfully added user ");
+			map.put("messsage", "User Returned Successfully  ");
 			map.put("user", asu);
 		} catch (Exception e) {
 			map.put("result", ServerResult.EXCEPTION);
@@ -65,9 +65,9 @@ public class DummyController {
 		User asu = null;
 		try {
 			asu = new User();
-			asu.setEmailID("huma.kuraishi@gmail.com");
-			asu.setGcmID("ASdfjgi45HJHOIISHIUHUU80sdf034udf3hs0HHsfdhdu343AS");
-			asu.setPhoneNumber("+918042935653");
+			asu.setEmailID("junaid@gmail.com");
+			asu.setGcmID("ASdfjgi45jdhfjsdfHIUHUU80sdf034udf3hs0HHsfdhdu343AS");
+			asu.setPhoneNumber("+917042935653");
 
 			FacebookCredential fb = new FacebookCredential();
 			fb.setFacebookID("873328465");
@@ -92,7 +92,12 @@ public class DummyController {
 			map.put("user", asu);
 		} catch (UserException e) {
 			map.put("result", ServerResult.EXCEPTION);
-			map.put("messsage", "User excetpion " + e.getMessage());
+			map.put("messsage", "User exception " + e.getMessage());
+			map.put("user", asu);
+			e.printStackTrace();
+		} catch (Exception e) {
+			map.put("result", ServerResult.EXCEPTION);
+			map.put("messsage", "Exception " + e.getMessage());
 			map.put("user", asu);
 			e.printStackTrace();
 		}

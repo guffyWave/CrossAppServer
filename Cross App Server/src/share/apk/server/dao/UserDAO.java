@@ -19,29 +19,28 @@ public interface UserDAO {
 	public List<String> getErrorMessages();
 
 	// get a user by id
-	public User getApkShareUser(long id) throws NoSuchIDException,
-			UserException, NegativeValueException;
+	public User getUser(long id) throws NoSuchIDException, UserException,
+			NegativeValueException;
 
 	// get a user by emailId
-	public User getApkShareUser(String emailID)
-			throws EmailIDException, EmptyStringException, UserException;
+	public User getUser(String emailID) throws EmailIDException,
+			EmptyStringException, UserException;
 
 	// get a user by phoneNumber
-	public User getApkShareUserByPhoneNumber(String phoneNumber)
+	public User getUserByPhoneNumber(String phoneNumber)
 			throws EmptyStringException, EmailIDException, UserException;
 
 	// get a userlist by ids
-	public List<User> getApkShareUsers(Long... ids)
-			throws NegativeValueException, NoSuchIDException;
+	public List<User> getUsers(Long... ids) throws NegativeValueException,
+			NoSuchIDException;
 
 	// get a userlist by emailIds
-	public List<User> getApkShareUsers(String... emailIDs)
-			throws UserException, EmptyStringException, EmailIDException;
+	public List<User> getUsers(String... emailIDs) throws UserException,
+			EmptyStringException, EmailIDException;
 
 	// get a userlist by phoneNumbers
-	public List<User> getApkShareUsersByPhoneNumber(
-			String... phoneNumber) throws EmptyStringException,
-			PhoneNumberException, UserException;
+	public List<User> getUsersByPhoneNumber(String... phoneNumber)
+			throws EmptyStringException, PhoneNumberException, UserException;
 
 	public boolean addUser(User asu) throws UserException;
 
@@ -54,47 +53,43 @@ public interface UserDAO {
 			throws EmptyStringException, PhoneNumberException;
 
 	// delete user
-	public boolean deleteUser(User apkShareUser) throws UserException;
+	public boolean deleteUser(User User) throws UserException;
 
 	// update user for emailId
-	public boolean updateUser(User apkShareUser) throws UserException;
+	public boolean updateUser(User User) throws UserException;
 
 	// update user for emailId
-	public boolean updateUserEmailID(User apkShareUser, String emailID)
+	public boolean updateUserEmailID(User User, String emailID)
 			throws EmptyStringException, EmailIDException, UserException;
 
 	// update user for phoneNumber
-	public boolean updateUserPhoneNumber(User apkShareUser,
-			String phoneNumber) throws EmptyStringException,
-			PhoneNumberException, UserException;
+	public boolean updateUserPhoneNumber(User User, String phoneNumber)
+			throws EmptyStringException, PhoneNumberException, UserException;
 
 	// update user for gcmID
-	public boolean updateUserGCMID(User apkShareUser, String gcmID)
+	public boolean updateUserGCMID(User User, String gcmID)
 			throws EmptyStringException, UserException;
 
 	/*
 	 * // update user facebook credential public boolean
-	 * updateUserFacebookCredential(ApkShareUser apkShareUser, String
-	 * facebookID, String facebookOAuthAccessToken) throws EmptyStringException,
-	 * UserException;
+	 * updateUserFacebookCredential(User User, String facebookID, String
+	 * facebookOAuthAccessToken) throws EmptyStringException, UserException;
 	 * 
 	 * // update user googleplus credential public boolean
-	 * updateUserGooglePlusCredential(ApkShareUser apkShareUser, String
-	 * goolgePlusID, String googlePlusOAuthAccessToken) throws
-	 * EmptyStringException, UserException;
+	 * updateUserGooglePlusCredential(User User, String goolgePlusID, String
+	 * googlePlusOAuthAccessToken) throws EmptyStringException, UserException;
 	 * 
 	 * // update user twitter credential public boolean
-	 * updateUserTwitterCredential(ApkShareUser apkShareUser, String twitterID,
-	 * String twitterOAuthAccessToken) throws EmptyStringException,
-	 * UserException;
+	 * updateUserTwitterCredential(User User, String twitterID, String
+	 * twitterOAuthAccessToken) throws EmptyStringException, UserException;
 	 */
 
 	// // / add packet to inbox
-	// public boolean addInBoxPacket(ApkShareUser apkShareUser,
+	// public boolean addInBoxPacket(User User,
 	// ApkSharePacket apkSharePacket);
 	//
 	// // / add packet to outbox
-	// public boolean addOutBoxPacket(ApkShareUser apkShareUser,
+	// public boolean addOutBoxPacket(User User,
 	// ApkSharePacket apkSharePacket);
 
 }

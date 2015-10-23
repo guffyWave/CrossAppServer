@@ -21,15 +21,14 @@ public class FileDAOImpl implements FileDAO {
 	List<String> errorMessages;
 	SessionFactory sessionFactory;
 
-	public FileDAOImpl(List<String> errorMessages,
-			SessionFactory sessionFactory) {
+	public FileDAOImpl(List<String> errorMessages, SessionFactory sessionFactory) {
 		this.errorMessages = new ArrayList<>();
 		this.sessionFactory = sessionFactory;
 	}
 
 	@Override
 	@Transactional
-	public File getApkShareFile(long id) throws NoSuchIDException,
+	public File getFile(long id) throws NoSuchIDException,
 			NegativeValueException, FileException {
 		if (id <= 0) {
 			throw new NegativeValueException("Negative ID Supplied " + id);
@@ -47,8 +46,8 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	@Transactional
-	public File getApkShareFile(String fileURI)
-			throws EmptyStringException, FileException {
+	public File getFile(String fileURI) throws EmptyStringException,
+			FileException {
 		if (fileURI.equals("")) {
 			throw new EmptyStringException("FileURI cannot be empty ");
 		} else {
@@ -67,12 +66,11 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	@Transactional
-	public boolean addApkShareFile(File apkShareFile)
-			throws FileException {
-		if (apkShareFile != null) {
+	public boolean addFile(File File) throws FileException {
+		if (File != null) {
 			Session s = sessionFactory.getCurrentSession();
 			// s.beginTransaction();
-			s.save(apkShareFile);
+			s.save(File);
 			// s.getTransaction().commit();
 		} else {
 			throw new FileException("File cannot be NULL");
@@ -82,16 +80,16 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	@Transactional
-	public boolean updateApkShareFileName(File apkShareFile,
-			String newFileName) throws EmptyStringException, FileException {
-		if (apkShareFile != null) {
+	public boolean updateFileName(File File, String newFileName)
+			throws EmptyStringException, FileException {
+		if (File != null) {
 			if (newFileName.equals("")) {
 				throw new EmptyStringException("New File Name cannot be empty ");
 			} else {
 				Session s = sessionFactory.getCurrentSession();
 				// s.beginTransaction();
-				apkShareFile.setFileName(newFileName);
-				s.update(apkShareFile);
+				File.setFileName(newFileName);
+				s.update(File);
 				// s.getTransaction().commit();
 				return true;
 			}
@@ -102,16 +100,16 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	@Transactional
-	public boolean updateApkShareFileURI(File apkShareFile,
-			String newFileURI) throws FileException, EmptyStringException {
-		if (apkShareFile != null) {
+	public boolean updateFileURI(File File, String newFileURI)
+			throws FileException, EmptyStringException {
+		if (File != null) {
 			if (newFileURI.equals("")) {
 				throw new EmptyStringException("New File URI cannot be empty ");
 			} else {
 				Session s = sessionFactory.getCurrentSession();
 				// s.beginTransaction();
-				apkShareFile.setFileURI(newFileURI);
-				s.update(apkShareFile);
+				File.setFileURI(newFileURI);
+				s.update(File);
 				// s.getTransaction().commit();
 				return true;
 			}
@@ -123,14 +121,14 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	@Transactional
-	public boolean updateApkShareFileSize(File apkShareFile,
-			long newFileSize) throws FileException, NegativeValueException {
-		if (apkShareFile != null) {
+	public boolean updateFileSize(File File, long newFileSize)
+			throws FileException, NegativeValueException {
+		if (File != null) {
 			if (newFileSize >= 0) {
 				Session s = sessionFactory.getCurrentSession();
 				// s.beginTransaction();
-				apkShareFile.setFileSize(newFileSize);
-				s.update(apkShareFile);
+				File.setFileSize(newFileSize);
+				s.update(File);
 				// s.getTransaction().commit();
 				return true;
 			} else {
@@ -144,12 +142,11 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	@Transactional
-	public boolean deleteApkShareFile(File apkShareFile)
-			throws FileException {
-		if (apkShareFile != null) {
+	public boolean deleteFile(File File) throws FileException {
+		if (File != null) {
 			Session s = sessionFactory.getCurrentSession();
 			// s.beginTransaction();
-			s.delete(apkShareFile);
+			s.delete(File);
 			// s.getTransaction().commit();
 			return true;
 		} else {
