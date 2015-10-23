@@ -7,6 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import share.apk.server.dto.User;
@@ -19,6 +20,7 @@ import share.apk.server.exceptions.UserException;
 import share.apk.server.management.DefaultValues;
 import share.apk.server.validators.EmailValidator;
 
+@Repository
 public class UserDAOImpl implements UserDAO {
 
 	List<String> errorMessages;
@@ -31,8 +33,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Transactional
 	@Override
-	public User getUser(long id) throws NoSuchIDException,
-			UserException, NegativeValueException {
+	public User getUser(long id) throws NoSuchIDException, UserException,
+			NegativeValueException {
 		if (id <= 0) {
 			throw new NegativeValueException("Negative ID Supplied " + id);
 		}
@@ -49,8 +51,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	@Transactional
-	public User getUser(String emailID)
-			throws EmailIDException, EmptyStringException, UserException {
+	public User getUser(String emailID) throws EmailIDException,
+			EmptyStringException, UserException {
 		if (emailID.equals("")) {
 			throw new EmptyStringException("Email ID cannot be empty ");
 		} else {
@@ -98,8 +100,8 @@ public class UserDAOImpl implements UserDAO {
 	// /---------------------->> pending
 	@Override
 	@Transactional
-	public List<User> getUsers(Long... ids)
-			throws NegativeValueException, NoSuchIDException {
+	public List<User> getUsers(Long... ids) throws NegativeValueException,
+			NoSuchIDException {
 		// check for IDs
 		for (long id : ids) {
 			if (id <= 0) {
@@ -119,8 +121,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	@Transactional
-	public List<User> getUsers(String... emailIDs)
-			throws UserException, EmptyStringException, EmailIDException {
+	public List<User> getUsers(String... emailIDs) throws UserException,
+			EmptyStringException, EmailIDException {
 		// check for email IDs
 		for (String emailID : emailIDs) {
 			if (emailID.equals("")) {
@@ -147,9 +149,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	@Transactional
-	public List<User> getUsersByPhoneNumber(
-			String... phoneNumbers) throws EmptyStringException,
-			PhoneNumberException {
+	public List<User> getUsersByPhoneNumber(String... phoneNumbers)
+			throws EmptyStringException, PhoneNumberException {
 		// check for email IDs
 		for (String phoneNumber : phoneNumbers) {
 			if (phoneNumber.equals("")) {
@@ -277,9 +278,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	@Transactional
-	public boolean updateUserPhoneNumber(User User,
-			String phoneNumber) throws EmptyStringException,
-			PhoneNumberException, UserException {
+	public boolean updateUserPhoneNumber(User User, String phoneNumber)
+			throws EmptyStringException, PhoneNumberException, UserException {
 		if (User != null) {
 			if (phoneNumber.equals("")) {
 				throw new EmptyStringException("Phone Number cannot be empty ");
@@ -322,22 +322,21 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	/*
-	 * @Override public boolean updateUserFacebookCredential(User
-	 * User, String facebookID, String facebookOAuthAccessToken) throws
-	 * EmptyStringException, UserException { if (User != null) { if
-	 * (facebookID.equals("")) { throw new
-	 * EmptyStringException("Facebook ID cannot be empty "); } else { Session s
-	 * = sessionFactory.getCurrentSession(); //s.beginTransaction();
+	 * @Override public boolean updateUserFacebookCredential(User User, String
+	 * facebookID, String facebookOAuthAccessToken) throws EmptyStringException,
+	 * UserException { if (User != null) { if (facebookID.equals("")) { throw
+	 * new EmptyStringException("Facebook ID cannot be empty "); } else {
+	 * Session s = sessionFactory.getCurrentSession(); //s.beginTransaction();
 	 * User.getFacebookCredential().setFacebookID(facebookID);
 	 * User.getFacebookCredential()
-	 * .setFacebookOAuthAccessToken(facebookOAuthAccessToken);
-	 * s.update(User); //s.getTransaction().commit(); return true; } }
-	 * else { throw new UserException("User cannot be NULL"); } }
+	 * .setFacebookOAuthAccessToken(facebookOAuthAccessToken); s.update(User);
+	 * //s.getTransaction().commit(); return true; } } else { throw new
+	 * UserException("User cannot be NULL"); } }
 	 * 
-	 * @Override public boolean updateUserGooglePlusCredential(User
-	 * User, String goolgePlusID, String googlePlusOAuthAccessToken)
-	 * throws EmptyStringException, UserException { if (User != null) {
-	 * if (goolgePlusID.equals("")) { throw new EmptyStringException(
+	 * @Override public boolean updateUserGooglePlusCredential(User User, String
+	 * goolgePlusID, String googlePlusOAuthAccessToken) throws
+	 * EmptyStringException, UserException { if (User != null) { if
+	 * (goolgePlusID.equals("")) { throw new EmptyStringException(
 	 * "Google Plus ID cannot be empty "); } else { Session s =
 	 * sessionFactory.getCurrentSession(); //s.beginTransaction();
 	 * User.getGoolgePlusCredential().setGoolgePlusID( goolgePlusID);
@@ -346,17 +345,16 @@ public class UserDAOImpl implements UserDAO {
 	 * //s.getTransaction().commit(); return true; } } else { throw new
 	 * UserException("User cannot be NULL"); } }
 	 * 
-	 * @Override public boolean updateUserTwitterCredential(User
-	 * User, String twitterID, String twitterOAuthAccessToken) throws
-	 * EmptyStringException, UserException { if (User != null) { if
-	 * (twitterID.equals("")) { throw new EmptyStringException(
-	 * "Google Plus ID cannot be empty "); } else { Session s =
-	 * sessionFactory.getCurrentSession(); //s.beginTransaction();
+	 * @Override public boolean updateUserTwitterCredential(User User, String
+	 * twitterID, String twitterOAuthAccessToken) throws EmptyStringException,
+	 * UserException { if (User != null) { if (twitterID.equals("")) { throw new
+	 * EmptyStringException( "Google Plus ID cannot be empty "); } else {
+	 * Session s = sessionFactory.getCurrentSession(); //s.beginTransaction();
 	 * User.getTwitterCredential().setTwitterID(twitterID);
 	 * User.getTwitterCredential().setTwitterOAuthAccessToken(
-	 * twitterOAuthAccessToken); s.update(User);
-	 * //s.getTransaction().commit(); return true; } } else { throw new
-	 * UserException("User cannot be NULL"); } }
+	 * twitterOAuthAccessToken); s.update(User); //s.getTransaction().commit();
+	 * return true; } } else { throw new UserException("User cannot be NULL"); }
+	 * }
 	 */
 
 }

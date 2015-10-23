@@ -22,7 +22,7 @@ import share.apk.server.management.ServerResult;
 public class DummyController {
 
 	@Autowired
-	UserDAO apkShareUserDAO;
+	UserDAO userDAO;
 
 	@RequestMapping(value = "/getUser", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public @ResponseBody
@@ -33,7 +33,7 @@ public class DummyController {
 		try {
 
 			// apkShareUserDAO.addUser("junaid@gmail.com");
-			asu = apkShareUserDAO.getUser("junaid@gmail.com");
+			asu = userDAO.getUser(1L);
 
 			// FacebookCredential fb = new FacebookCredential();
 			// fb.setFacebookID("00000000");
@@ -65,9 +65,9 @@ public class DummyController {
 		User asu = null;
 		try {
 			asu = new User();
-			asu.setEmailID("junaid@gmail.com");
-			asu.setGcmID("ASdfjgi45jdhfjsdfHIUHUU80sdf034udf3hs0HHsfdhdu343AS");
-			asu.setPhoneNumber("+917042935653");
+			asu.setEmailID("saba@gmail.com");
+			asu.setGcmID("ASjhjkasfuh879830sdf034udf3hs0HHsfdhdu343AS");
+			asu.setPhoneNumber("+917092935653");
 
 			FacebookCredential fb = new FacebookCredential();
 			fb.setFacebookID("873328465");
@@ -85,7 +85,7 @@ public class DummyController {
 			asu.getCredentialsList().add(tc);
 			asu.getCredentialsList().add(fb);
 
-			apkShareUserDAO.addUser(asu);
+			userDAO.addUser(asu);
 			// /------->> Result
 			map.put("result", ServerResult.SUCCESS);
 			map.put("messsage", "successfully returned shop.");

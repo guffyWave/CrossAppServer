@@ -5,12 +5,13 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import share.apk.server.dto.Packet;
 import share.apk.server.exceptions.NegativeValueException;
 import share.apk.server.exceptions.PacketException;
-
+@Repository
 public class PacketDAOImpl implements PacketDAO {
 
 	List<String> errorMessages;

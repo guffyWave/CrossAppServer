@@ -65,7 +65,7 @@
 
 
 	<!-- DAO -->
-	<bean id="apkShareUserDAO" class="share.apk.server.dao.UserDAOImpl">
+	<bean id="userDAO" class="share.apk.server.dao.UserDAOImpl">
 		<constructor-arg>
 			<ref bean="sessionFactory" />
 		</constructor-arg>

@@ -7,6 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import share.apk.server.dto.File;
@@ -15,7 +16,7 @@ import share.apk.server.exceptions.EmptyStringException;
 import share.apk.server.exceptions.FileException;
 import share.apk.server.exceptions.NegativeValueException;
 import share.apk.server.exceptions.NoSuchIDException;
-
+@Repository
 public class FileDAOImpl implements FileDAO {
 
 	List<String> errorMessages;
