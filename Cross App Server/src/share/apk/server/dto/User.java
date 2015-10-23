@@ -3,6 +3,7 @@ package share.apk.server.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ import share.apk.server.validators.EmailValidator;
 import share.apk.server.validators.PhoneNumberValidator;
 
 @Entity
-@Table(name = "Apk_Share_User", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(name = "Cross_App_User", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"emailID", "gcmID" }))
 public class User {
 	@Id
@@ -33,11 +34,11 @@ public class User {
 	boolean userActivationStatus;
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "ApkShareUser_InBox")
-	List<ApkSharePacket> inBoxPacketList = new ArrayList<ApkSharePacket>();
+	List<Packet> inBoxPacketList = new ArrayList<Packet>();
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "ApkShareUser_OutBox")
-	List<ApkSharePacket> outBoxPacketList = new ArrayList<ApkSharePacket>();
-	@OneToMany(fetch = FetchType.EAGER)
+	List<Packet> outBoxPacketList = new ArrayList<Packet>();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	List<SocialCredential> credentialsList = new ArrayList<SocialCredential>();
 
 	public long getId() {
@@ -102,19 +103,19 @@ public class User {
 		this.userActivationStatus = userActivationStatus;
 	}
 
-	public List<ApkSharePacket> getInBoxPacketList() {
+	public List<Packet> getInBoxPacketList() {
 		return inBoxPacketList;
 	}
 
-	public void setInBoxPacketList(List<ApkSharePacket> inBoxPacketList) {
+	public void setInBoxPacketList(List<Packet> inBoxPacketList) {
 		this.inBoxPacketList = inBoxPacketList;
 	}
 
-	public List<ApkSharePacket> getOutBoxPacketList() {
+	public List<Packet> getOutBoxPacketList() {
 		return outBoxPacketList;
 	}
 
-	public void setOutBoxPacketList(List<ApkSharePacket> outBoxPacketList) {
+	public void setOutBoxPacketList(List<Packet> outBoxPacketList) {
 		this.outBoxPacketList = outBoxPacketList;
 	}
 

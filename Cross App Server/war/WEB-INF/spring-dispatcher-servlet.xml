@@ -49,7 +49,7 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/APKShareDB" />
+		<property name="url" value="jdbc:mysql://localhost:3306/CrossAppDB" />
 		<property name="username" value="root" />
 		<property name="password" value="babu1267" />
 	</bean>
@@ -65,7 +65,7 @@
 
 
 	<!-- DAO -->
-	<bean id="apkShareUserDAO" class="share.apk.server.dao.ApkShareUserDAOImpl">
+	<bean id="apkShareUserDAO" class="share.apk.server.dao.UserDAOImpl">
 		<constructor-arg>
 			<ref bean="sessionFactory" />
 		</constructor-arg>

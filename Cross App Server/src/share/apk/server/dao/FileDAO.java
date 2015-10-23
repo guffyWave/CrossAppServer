@@ -8,7 +8,7 @@ import share.apk.server.exceptions.FileException;
 import share.apk.server.exceptions.NegativeValueException;
 import share.apk.server.exceptions.NoSuchIDException;
 
-public interface ApkShareFileDAO {
+public interface FileDAO {
 
 	// --->> for error message
 	public List<String> getErrorMessages();

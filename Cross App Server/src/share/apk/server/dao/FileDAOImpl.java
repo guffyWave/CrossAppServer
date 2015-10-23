@@ -16,12 +16,12 @@ import share.apk.server.exceptions.FileException;
 import share.apk.server.exceptions.NegativeValueException;
 import share.apk.server.exceptions.NoSuchIDException;
 
-public class ApkShareFileDAOImpl implements ApkShareFileDAO {
+public class FileDAOImpl implements FileDAO {
 
 	List<String> errorMessages;
 	SessionFactory sessionFactory;
 
-	public ApkShareFileDAOImpl(List<String> errorMessages,
+	public FileDAOImpl(List<String> errorMessages,
 			SessionFactory sessionFactory) {
 		this.errorMessages = new ArrayList<>();
 		this.sessionFactory = sessionFactory;

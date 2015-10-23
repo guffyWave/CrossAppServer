@@ -19,12 +19,12 @@ import share.apk.server.exceptions.UserException;
 import share.apk.server.management.DefaultValues;
 import share.apk.server.validators.EmailValidator;
 
-public class ApkShareUserDAOImpl implements ApkShareUserDAO {
+public class UserDAOImpl implements UserDAO {
 
 	List<String> errorMessages;
 	SessionFactory sessionFactory;
 
-	public ApkShareUserDAOImpl(SessionFactory sessionFactory) {
+	public UserDAOImpl(SessionFactory sessionFactory) {
 		this.errorMessages = new ArrayList<>();
 		this.sessionFactory = sessionFactory;
 	}

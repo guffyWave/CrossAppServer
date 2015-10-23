@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import share.apk.server.dao.ApkShareUserDAO;
+import share.apk.server.dao.UserDAO;
 import share.apk.server.dto.User;
 import share.apk.server.dto.FacebookCredential;
 import share.apk.server.dto.GooglePlusCredential;
@@ -22,7 +22,7 @@ import share.apk.server.management.ServerResult;
 public class DummyController {
 
 	@Autowired
-	ApkShareUserDAO apkShareUserDAO;
+	UserDAO apkShareUserDAO;
 
 	@RequestMapping(value = "/dummyURL", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	public @ResponseBody
@@ -32,7 +32,7 @@ public class DummyController {
 		User asu = null;
 		try {
 
-			//apkShareUserDAO.addUser("junaid@gmail.com");
+			// apkShareUserDAO.addUser("junaid@gmail.com");
 			asu = apkShareUserDAO.getApkShareUser("junaid@gmail.com");
 
 			FacebookCredential fb = new FacebookCredential();
@@ -57,15 +57,17 @@ public class DummyController {
 		return map;
 	}
 
-	private void createUser(Map map) throws Exception {
+	@RequestMapping(value = "/createUser", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	private @ResponseBody
+	Map<String, Object> createUser(Map map) throws Exception {
 
 		// --------------->> Creating a User
 		User asu = null;
 		try {
 			asu = new User();
-			asu.setEmailID("guffy1267@gmail.com");
-			asu.setGcmID("ASdfjgi4596fHIUHUU80sdf034udf3hs0HHsfdhdu343AS");
-			asu.setPhoneNumber("+917042935653");
+			asu.setEmailID("huma.kuraishi@gmail.com");
+			asu.setGcmID("ASdfjgi45HJHOIISHIUHUU80sdf034udf3hs0HHsfdhdu343AS");
+			asu.setPhoneNumber("+918042935653");
 
 			FacebookCredential fb = new FacebookCredential();
 			fb.setFacebookID("873328465");
@@ -94,6 +96,8 @@ public class DummyController {
 			map.put("user", asu);
 			e.printStackTrace();
 		}
+
+		return map;
 
 	}
 }

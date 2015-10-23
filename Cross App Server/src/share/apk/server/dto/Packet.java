@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 import share.apk.server.exceptions.NotNullException;
 
 @Entity
-public abstract class ApkSharePacket {
+public abstract class Packet {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	long id;

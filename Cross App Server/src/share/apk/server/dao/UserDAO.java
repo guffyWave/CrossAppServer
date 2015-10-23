@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import share.apk.server.dto.ApkSharePacket;
+import share.apk.server.dto.Packet;
 import share.apk.server.dto.User;
 import share.apk.server.exceptions.EmailIDException;
 import share.apk.server.exceptions.EmptyStringException;
@@ -13,7 +13,7 @@ import share.apk.server.exceptions.NoSuchIDException;
 import share.apk.server.exceptions.PhoneNumberException;
 import share.apk.server.exceptions.UserException;
 
-public interface ApkShareUserDAO {
+public interface UserDAO {
 
 	// --->> for error message
 	public List<String> getErrorMessages();

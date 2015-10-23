@@ -6,7 +6,7 @@ import javax.persistence.OneToOne;
 import share.apk.server.exceptions.NotNullException;
 
 @Entity
-public class FilePacket extends ApkSharePacket {
+public class FilePacket extends Packet {
 	@OneToOne
 	File file;
 

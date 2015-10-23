@@ -6,7 +6,7 @@ import javax.persistence.OneToOne;
 import share.apk.server.exceptions.NotNullException;
 
 @Entity
-public class MessagePacket extends ApkSharePacket {
+public class MessagePacket extends Packet {
 	@OneToOne
 	Message apkShareMessage;
 
