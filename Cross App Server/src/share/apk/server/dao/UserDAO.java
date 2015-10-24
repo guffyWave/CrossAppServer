@@ -26,6 +26,10 @@ public interface UserDAO {
 	public User getUser(String emailID) throws EmailIDException,
 			EmptyStringException, UserException;
 
+	// gets a user by inbox
+	public List<Packet> getUserInbox(long userID) throws NoSuchIDException,
+			UserException, NegativeValueException;
+
 	// get a user by phoneNumber
 	public User getUserByPhoneNumber(String phoneNumber)
 			throws EmptyStringException, EmailIDException, UserException;

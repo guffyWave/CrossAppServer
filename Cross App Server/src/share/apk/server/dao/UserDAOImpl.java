@@ -8,8 +8,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import share.apk.server.dto.Packet;
 import share.apk.server.dto.User;
 import share.apk.server.exceptions.EmailIDException;
 import share.apk.server.exceptions.EmptyStringException;
@@ -31,22 +33,47 @@ public class UserDAOImpl implements UserDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	@Transactional
+	// @Transactional
 	@Override
 	public User getUser(long id) throws NoSuchIDException, UserException,
 			NegativeValueException {
 		if (id <= 0) {
 			throw new NegativeValueException("Negative ID Supplied " + id);
 		}
-		Session s = sessionFactory.getCurrentSession();
-		// //s.beginTransaction();
+		// Session s = sessionFactory.getCurrentSession();
+		Session s = sessionFactory.openSession();
+		s.beginTransaction();
 		User asu = (User) s.get(User.class, id);
-		// //s.getTransaction().commit();
+		// ------------>>>>asu.getCredentialsList().get(0);
+
+		// asu.setInBoxPacketList(asu.getInBoxPacketList());
+		s.getTransaction().commit();
+
 		if (asu != null) {
 			return asu;
 		} else {
 			throw new NoSuchIDException("No User with ID " + id);
 		}
+	}
+
+	@Transactional
+	@Override
+	public List<Packet> getUserInbox(long userID) throws NoSuchIDException,
+			UserException, NegativeValueException {
+		// if (userID <= 0) {
+		// throw new NegativeValueException("Negative ID Supplied " + userID);
+		// }
+		// Session s = sessionFactory.getCurrentSession();
+		// // //s.beginTransaction();
+		// User asu = (User) s.get(User.class, userID);
+		// // //s.getTransaction().commit();
+		// if (asu != null) {
+		// return asu.getInBoxPacketList();
+		// } else {
+		// throw new NoSuchIDException("No User with ID " + userID);
+		// }
+		//
+		return null;
 	}
 
 	@Override
@@ -142,9 +169,7 @@ public class UserDAOImpl implements UserDAO {
 		criteria.add(Restrictions.in("emailID", emailIDs));
 
 		// s.getTransaction().commit();
-
 		return criteria.list();
-
 	}
 
 	@Override
@@ -165,7 +190,6 @@ public class UserDAOImpl implements UserDAO {
 		criteria.add(Restrictions.in("phoneNumber", phoneNumbers));
 
 		// s.getTransaction().commit();
-
 		return criteria.list();
 	}
 

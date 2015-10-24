@@ -1,6 +1,5 @@
 package share.apk.server.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,13 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import share.apk.server.exceptions.EmailIDException;
 import share.apk.server.exceptions.EmptyStringException;
@@ -29,35 +24,41 @@ import share.apk.server.validators.PhoneNumberValidator;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	long id;
-	String emailID;
-	String phoneNumber;
-	String gcmID;
+	private long id;
+	private String emailID;
+	private String phoneNumber;
+	private String gcmID;
 	// ---->>> userActivationStatus is pending for use
-	boolean userActivationStatus;
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "Cross_App_User_InBox")
-	List<Packet> inBoxPacketList = new ArrayList<Packet>();
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "Cross_App_User_OutBox")
-	List<Packet> outBoxPacketList = new ArrayList<Packet>();
+	private boolean userActivationStatus;
+	// @OneToMany(fetch = FetchType.EAGER)
+	// @JoinTable(name = "Cross_App_User_InBox")
+	// List<Packet> inBoxPacketList = new ArrayList<Packet>();
+
+	// @OneToMany
+	// // (fetch = FetchType.LAZY)
+	// @JoinTable(name = "Cross_App_User_OutBox")
+	// List<Packet> outBoxPacketList = new ArrayList<Packet>();
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	List<SocialCredential> credentialsList = new ArrayList<SocialCredential>();
+	private List<SocialCredential> credentialsList;
 
 	public long getId() {
+		System.out.println("getId is called");
 		return id;
 	}
 
 	public void setId(long id) {
+		System.out.println("setId is called");
 		this.id = id;
 	}
 
 	public String getEmailID() {
+		System.out.println("getEmailID is called");
 		return emailID;
 	}
 
 	public void setEmailID(String emailID) throws EmptyStringException,
 			EmailIDException {
+		System.out.println("setEmailID is called");
 		if (!emailID.equals("")) {
 			if (new EmailValidator().validate(emailID) == true) {
 				this.emailID = emailID;
@@ -106,27 +107,29 @@ public class User {
 		this.userActivationStatus = userActivationStatus;
 	}
 
-	public List<Packet> getInBoxPacketList() {
-		return inBoxPacketList;
-	}
+	// public List<Packet> getInBoxPacketList() {
+	// return inBoxPacketList;
+	// }
+	//
+	// public void setInBoxPacketList(List<Packet> inBoxPacketList) {
+	// this.inBoxPacketList = inBoxPacketList;
+	// }
 
-	public void setInBoxPacketList(List<Packet> inBoxPacketList) {
-		this.inBoxPacketList = inBoxPacketList;
-	}
-
-	public List<Packet> getOutBoxPacketList() {
-		return outBoxPacketList;
-	}
-
-	public void setOutBoxPacketList(List<Packet> outBoxPacketList) {
-		this.outBoxPacketList = outBoxPacketList;
-	}
-
+	// public List<Packet> getOutBoxPacketList() {
+	// return outBoxPacketList;
+	// }
+	//
+	// public void setOutBoxPacketList(List<Packet> outBoxPacketList) {
+	// this.outBoxPacketList = outBoxPacketList;
+	// }
+	//
 	public List<SocialCredential> getCredentialsList() {
+		System.out.println("getCredentialsList is called");
 		return credentialsList;
 	}
 
 	public void setCredentialsList(List<SocialCredential> credentialsList) {
+		System.out.println("setCredentialsList is called");
 		this.credentialsList = credentialsList;
 	}
 
