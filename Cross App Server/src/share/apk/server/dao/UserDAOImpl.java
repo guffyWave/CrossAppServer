@@ -7,9 +7,10 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.orm.hibernate4.SessionHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import share.apk.server.dto.Packet;
 import share.apk.server.dto.User;
@@ -31,23 +32,38 @@ public class UserDAOImpl implements UserDAO {
 	public UserDAOImpl(SessionFactory sessionFactory) {
 		this.errorMessages = new ArrayList<>();
 		this.sessionFactory = sessionFactory;
+		Session s = sessionFactory.openSession();
+		TransactionSynchronizationManager.bindResource(sessionFactory,
+				new SessionHolder(s));
 	}
 
-	// @Transactional
+	@Override
+	protected void finalize() throws Throwable {
+
+		SessionHolder holder = (SessionHolder) TransactionSynchronizationManager
+				.getResource(sessionFactory);
+		Session s = holder.getSession();
+		s.flush();
+		TransactionSynchronizationManager.unbindResource(sessionFactory);
+		//SessionFactoryUtils.closeSessionIfNecessary(s, sessionFactory);
+		super.finalize();
+	}
+
+	@Transactional
 	@Override
 	public User getUser(long id) throws NoSuchIDException, UserException,
 			NegativeValueException {
 		if (id <= 0) {
 			throw new NegativeValueException("Negative ID Supplied " + id);
 		}
-		// Session s = sessionFactory.getCurrentSession();
-		Session s = sessionFactory.openSession();
-		s.beginTransaction();
+		Session s = sessionFactory.getCurrentSession();
+		// Session s = sessionFactory.openSession();
+		// s.beginTransaction();
 		User asu = (User) s.get(User.class, id);
 		// ------------>>>>asu.getCredentialsList().get(0);
 
 		// asu.setInBoxPacketList(asu.getInBoxPacketList());
-		s.getTransaction().commit();
+		// s.getTransaction().commit();
 
 		if (asu != null) {
 			return asu;

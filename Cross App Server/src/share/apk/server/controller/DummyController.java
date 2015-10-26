@@ -68,8 +68,8 @@ public class DummyController {
 		User asu = null;
 		try {
 			asu = new User();
-			asu.setEmailID("mohit.pandey@gmail.com");
-			asu.setGcmID("Ajshdsa74579830sdf034udf3hs0HHsfdhdu343AS");
+			asu.setEmailID("salman.haider@gmail.com");
+			asu.setGcmID("AjshsljhdiHsfdhdu343AS");
 			asu.setPhoneNumber("+917092935653");
 
 			FacebookCredential fb = new FacebookCredential();
