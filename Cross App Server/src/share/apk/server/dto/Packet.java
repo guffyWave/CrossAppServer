@@ -5,12 +5,16 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import share.apk.server.exceptions.NotNullException;
 
@@ -20,11 +24,15 @@ public abstract class Packet {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	long id;
 	@ManyToOne
+	// (fetch = FetchType.LAZY)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	User fromUser;
 	@ManyToOne
+	// (fetch = FetchType.LAZY)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	User toUser;
 	@Enumerated(EnumType.STRING)
-	Status status;
+	PacketStatus status;
 	@Temporal(TemporalType.TIMESTAMP)
 	Date timeStamp;
 
@@ -60,13 +68,13 @@ public abstract class Packet {
 		}
 	}
 
-	public Status getStatus() {
+	public PacketStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status fileStatus) throws NotNullException {
+	public void setStatus(PacketStatus fileStatus) throws NotNullException {
 		if (fileStatus != null && !fileStatus.equals("")) {
-			this.status = status;
+			this.status = fileStatus;
 		} else {
 			throw new NotNullException("Status cannot be null or empty");
 		}

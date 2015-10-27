@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.orm.hibernate4.SessionHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import share.apk.server.dto.FacebookCredential;
 import share.apk.server.dto.GooglePlusCredential;
@@ -28,6 +27,7 @@ import share.apk.server.management.DefaultValues;
 import share.apk.server.validators.EmailValidator;
 
 @Repository
+@Transactional
 public class UserDAOImpl implements UserDAO {
 
 	List<String> errorMessages;
@@ -36,24 +36,9 @@ public class UserDAOImpl implements UserDAO {
 	public UserDAOImpl(SessionFactory sessionFactory) {
 		this.errorMessages = new ArrayList<>();
 		this.sessionFactory = sessionFactory;
-		Session s = sessionFactory.openSession();
-		TransactionSynchronizationManager.bindResource(sessionFactory,
-				new SessionHolder(s));
+
 	}
 
-	@Override
-	protected void finalize() throws Throwable {
-
-		SessionHolder holder = (SessionHolder) TransactionSynchronizationManager
-				.getResource(sessionFactory);
-		Session s = holder.getSession();
-		s.flush();
-		TransactionSynchronizationManager.unbindResource(sessionFactory);
-		// SessionFactoryUtils.closeSessionIfNecessary(s, sessionFactory);
-		super.finalize();
-	}
-
-	@Transactional
 	@Override
 	public User getUser(long id) throws NoSuchIDException, UserException,
 			NegativeValueException {
@@ -63,20 +48,17 @@ public class UserDAOImpl implements UserDAO {
 		Session s = sessionFactory.getCurrentSession();
 		// Session s = sessionFactory.openSession();
 		// s.beginTransaction();
-		User asu = (User) s.get(User.class, id);
-		// ------------>>>>asu.getCredentialsList().get(0);
+		User u = (User) s.get(User.class, id);
 
-		// asu.setInBoxPacketList(asu.getInBoxPacketList());
 		// s.getTransaction().commit();
 
-		if (asu != null) {
-			return asu;
+		if (u != null) {
+			return u;
 		} else {
 			throw new NoSuchIDException("No User with ID " + id);
 		}
 	}
 
-	@Transactional
 	@Override
 	public List<Packet> getUserInbox(long userID) throws NoSuchIDException,
 			UserException, NegativeValueException {
@@ -97,7 +79,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	@Transactional
 	public User getUser(String emailID) throws EmailIDException,
 			EmptyStringException, UserException {
 		if (emailID.equals("")) {
@@ -123,7 +104,6 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 
-	@Transactional
 	@Override
 	public User getUserByPhoneNumber(String phoneNumber)
 			throws EmptyStringException, EmailIDException, UserException {
@@ -146,7 +126,6 @@ public class UserDAOImpl implements UserDAO {
 
 	// /---------------------->> pending
 	@Override
-	@Transactional
 	public List<User> getUsers(Long... ids) throws NegativeValueException,
 			NoSuchIDException {
 		// check for IDs
@@ -167,7 +146,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	@Transactional
 	public List<User> getUsers(String... emailIDs) throws UserException,
 			EmptyStringException, EmailIDException {
 		// check for email IDs
@@ -193,7 +171,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	@Transactional
 	public List<User> getUsersByPhoneNumber(String... phoneNumbers)
 			throws EmptyStringException, PhoneNumberException {
 		// check for email IDs
@@ -213,7 +190,6 @@ public class UserDAOImpl implements UserDAO {
 		return criteria.list();
 	}
 
-	@Transactional
 	@Override
 	public boolean addUser(User asu) throws UserException {
 		if (asu == null) {
@@ -228,7 +204,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean addUser(String emailID) throws EmptyStringException,
 			EmailIDException {
 		if (emailID.equals("")) {
@@ -254,7 +229,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean addUserByPhoneNumber(String phoneNumber)
 			throws EmptyStringException, PhoneNumberException {
 		if (phoneNumber.equals("")) {
@@ -273,7 +247,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean deleteUser(User User) throws UserException {
 		if (User != null) {
 			Session s = sessionFactory.getCurrentSession();
@@ -287,10 +260,10 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean updateUser(User User) throws UserException {
 		if (User != null) {
 			Session s = sessionFactory.getCurrentSession();
+			// Session s = sessionFactory.openSession();
 			// s.beginTransaction();
 			s.update(User);
 			// s.getTransaction().commit();
@@ -301,7 +274,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean updateUserEmailID(User u, String emailID)
 			throws EmptyStringException, EmailIDException, UserException {
 		if (u != null) {
@@ -321,7 +293,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean updateUserPhoneNumber(User User, String phoneNumber)
 			throws EmptyStringException, PhoneNumberException, UserException {
 		if (User != null) {
@@ -341,7 +312,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean updateUserGCMID(User User, String gcmID)
 			throws EmptyStringException, UserException {
 		if (User != null) {

@@ -12,16 +12,13 @@ public interface PacketDAO {
 	public List<String> getErrorMessages();
 
 	// store packet
-	public boolean storePacket(Packet apkSharePacket)
-			throws PacketException;
+	public boolean storePacket(Packet packet) throws PacketException;
 
 	// delete packet
-	public boolean deletePacket(Packet apkSharePacket)
-			throws PacketException;
+	public boolean deletePacket(Packet packet) throws PacketException;
 
 	// update packet
-	public boolean updatePacket(Packet apkSharePacket)
-			throws PacketException;
+	public boolean updatePacket(Packet packet) throws PacketException;
 
 	// get packet by id
 	public Packet getPacket(long id) throws NegativeValueException,

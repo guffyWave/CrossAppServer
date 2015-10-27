@@ -71,6 +71,12 @@
 		</constructor-arg>
 	</bean>
 
+	<bean id="packetDAO" class="share.apk.server.dao.PacketDAOImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+
 
 	<!-- TransactionManager -->
 	<bean id="transactionManager"

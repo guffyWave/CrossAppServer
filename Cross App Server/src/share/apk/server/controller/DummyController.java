@@ -3,6 +3,7 @@ package share.apk.server.controller;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.hibernate.LazyInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -12,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import share.apk.server.dao.PacketDAO;
 import share.apk.server.dao.UserDAO;
 import share.apk.server.dto.FacebookCredential;
 import share.apk.server.dto.GooglePlusCredential;
+import share.apk.server.dto.Message;
+import share.apk.server.dto.MessagePacket;
 import share.apk.server.dto.TwitterCredential;
 import share.apk.server.dto.User;
+import share.apk.server.exceptions.PacketException;
 import share.apk.server.exceptions.UserException;
 import share.apk.server.management.ServerResult;
 
@@ -25,36 +30,28 @@ public class DummyController {
 
 	@Autowired
 	UserDAO userDAO;
+	@Autowired
+	PacketDAO packetDAO;
 
 	@RequestMapping(value = "/getUser/{userID}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public @ResponseBody
 	Map<String, Object> getUser(@PathVariable("userID") Long userID) {
 		Map<String, Object> map = new LinkedHashMap<String, Object>();
 
-		User asu = null;
+		User u = null;
 		try {
-
-			// apkShareUserDAO.addUser("junaid@gmail.com");
-			asu = userDAO.getUser(userID);
-
-			// List<Packet> inBoxList = userDAO.getUserInbox(1L);
-
-			// FacebookCredential fb = new FacebookCredential();
-			// fb.setFacebookID("00000000");
-			// fb.setFacebookOAuthAccessToken("XXXXXXXXXxxxxxxxxxxxXXXXXXXXXX");
-			//
-			// asu.getCredentialsList().add(fb);
-			//
-			// apkShareUserDAO.updateUser(asu);
-
-			// /------>> Result
+			u = userDAO.getUser(userID);
 			map.put("result", ServerResult.SUCCESS);
 			map.put("messsage", "User Returned Successfully");
-			map.put("user", asu);
+			map.put("user", u);
+		} catch (LazyInitializationException e) {
+			map.put("result", ServerResult.EXCEPTION);
+			map.put("messsage", "Exception " + e.getMessage());
+			map.put("user", u);
+			e.printStackTrace();
 		} catch (Exception e) {
 			map.put("result", ServerResult.EXCEPTION);
 			map.put("messsage", "Exception " + e.getMessage());
-			map.put("user", asu);
 			e.printStackTrace();
 		}
 		return map;
@@ -76,6 +73,7 @@ public class DummyController {
 			asu.setEmailID(userMailID);
 			asu.setGcmID(gcmID);
 			asu.setPhoneNumber(mobileNumber);
+			asu.setDisplayName(displayName);
 
 			FacebookCredential fb = new FacebookCredential();
 			fb.setFacebookID("873328465");
@@ -91,7 +89,7 @@ public class DummyController {
 
 			asu.getCredentialsList().add(fb);
 			asu.getCredentialsList().add(tc);
-			asu.getCredentialsList().add(fb);
+			asu.getCredentialsList().add(gpc);
 
 			userDAO.addUser(asu);
 			// /------->> Result
@@ -110,4 +108,54 @@ public class DummyController {
 
 		return map;
 	}
+
+	@RequestMapping(value = "/createMessagePacket", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+	private @ResponseBody
+	Map<String, Object> createMessage(
+			@RequestParam("fromUserID") Long fromUserID,
+			@RequestParam("toUserID") Long toUserID,
+			@RequestParam("message") String message) throws Exception {
+
+		Map<String, Object> map = new LinkedHashMap<String, Object>();
+
+		// --------------->> Creating a User
+		try {
+			User fromUser = userDAO.getUser(fromUserID);
+			User toUser = userDAO.getUser(toUserID);
+
+			Message m = new Message();
+			m.setMessage(message);
+
+			MessagePacket messagePacket = new MessagePacket();
+			messagePacket.setFromUser(fromUser);
+			messagePacket.setToUser(toUser);
+			messagePacket.setMessage(m);
+
+			fromUser.getOutBoxPacketList().add(messagePacket);
+			toUser.getInBoxPacketList().add(messagePacket);
+
+			packetDAO.storePacket(messagePacket);
+			userDAO.updateUser(fromUser);
+			userDAO.updateUser(toUser);
+			// /------->> Result
+			map.put("result", ServerResult.SUCCESS);
+			map.put("messsage", "Successfully stored message packet");
+			map.put("message", messagePacket);
+		} catch (UserException e) {
+			map.put("result", ServerResult.EXCEPTION);
+			map.put("messsage", "User exception " + e.getMessage());
+			e.printStackTrace();
+		} catch (PacketException e) {
+			map.put("result", ServerResult.EXCEPTION);
+			map.put("messsage", "Packet exception " + e.getMessage());
+			e.printStackTrace();
+		} catch (Exception e) {
+			map.put("result", ServerResult.EXCEPTION);
+			map.put("messsage", "Exception " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return map;
+	}
+
 }
