@@ -8,10 +8,20 @@
 </head>
 <body>
 
-	<h1>Cross App Index JSP Page</h1>
+	<h1>Test</h1>
 
 	<form action="/dummyURL" method="post">
 		<input type="submit" value="Hello" />
 	</form>
+
+	<h1>Add User</h1>
+
+	<form action="/createUser" method="post">
+		Email ID <input type="text" name="emailID"><br /> GCM ID <input
+			type="text" name="gcmID"> <br /> Mobile Number <input
+			type="text" name="mobileNumber"><br /> Display Name <input
+			type="text" name="displayName"><br /> <input type="submit">
+	</form>
+
 </body>
 </html>

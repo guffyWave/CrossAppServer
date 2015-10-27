@@ -12,7 +12,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+import share.apk.server.dto.FacebookCredential;
+import share.apk.server.dto.GooglePlusCredential;
 import share.apk.server.dto.Packet;
+import share.apk.server.dto.SocialCredential;
+import share.apk.server.dto.TwitterCredential;
 import share.apk.server.dto.User;
 import share.apk.server.exceptions.EmailIDException;
 import share.apk.server.exceptions.EmptyStringException;
@@ -45,7 +49,7 @@ public class UserDAOImpl implements UserDAO {
 		Session s = holder.getSession();
 		s.flush();
 		TransactionSynchronizationManager.unbindResource(sessionFactory);
-		//SessionFactoryUtils.closeSessionIfNecessary(s, sessionFactory);
+		// SessionFactoryUtils.closeSessionIfNecessary(s, sessionFactory);
 		super.finalize();
 	}
 
@@ -298,16 +302,16 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	@Transactional
-	public boolean updateUserEmailID(User User, String emailID)
+	public boolean updateUserEmailID(User u, String emailID)
 			throws EmptyStringException, EmailIDException, UserException {
-		if (User != null) {
+		if (u != null) {
 			if (emailID.equals("")) {
 				throw new EmptyStringException("Email ID cannot be empty ");
 			} else {
 				Session s = sessionFactory.getCurrentSession();
 				// s.beginTransaction();
-				User.setEmailID(emailID);
-				s.update(User);
+				u.setEmailID(emailID);
+				s.update(u);
 				// s.getTransaction().commit();
 				return true;
 			}
@@ -361,40 +365,201 @@ public class UserDAOImpl implements UserDAO {
 		return errorMessages;
 	}
 
-	/*
-	 * @Override public boolean updateUserFacebookCredential(User User, String
-	 * facebookID, String facebookOAuthAccessToken) throws EmptyStringException,
-	 * UserException { if (User != null) { if (facebookID.equals("")) { throw
-	 * new EmptyStringException("Facebook ID cannot be empty "); } else {
-	 * Session s = sessionFactory.getCurrentSession(); //s.beginTransaction();
-	 * User.getFacebookCredential().setFacebookID(facebookID);
-	 * User.getFacebookCredential()
-	 * .setFacebookOAuthAccessToken(facebookOAuthAccessToken); s.update(User);
-	 * //s.getTransaction().commit(); return true; } } else { throw new
-	 * UserException("User cannot be NULL"); } }
-	 * 
-	 * @Override public boolean updateUserGooglePlusCredential(User User, String
-	 * goolgePlusID, String googlePlusOAuthAccessToken) throws
-	 * EmptyStringException, UserException { if (User != null) { if
-	 * (goolgePlusID.equals("")) { throw new EmptyStringException(
-	 * "Google Plus ID cannot be empty "); } else { Session s =
-	 * sessionFactory.getCurrentSession(); //s.beginTransaction();
-	 * User.getGoolgePlusCredential().setGoolgePlusID( goolgePlusID);
-	 * User.getGoolgePlusCredential() .setGoolgePlusOAuthAccessToken(
-	 * googlePlusOAuthAccessToken); s.update(User);
-	 * //s.getTransaction().commit(); return true; } } else { throw new
-	 * UserException("User cannot be NULL"); } }
-	 * 
-	 * @Override public boolean updateUserTwitterCredential(User User, String
-	 * twitterID, String twitterOAuthAccessToken) throws EmptyStringException,
-	 * UserException { if (User != null) { if (twitterID.equals("")) { throw new
-	 * EmptyStringException( "Google Plus ID cannot be empty "); } else {
-	 * Session s = sessionFactory.getCurrentSession(); //s.beginTransaction();
-	 * User.getTwitterCredential().setTwitterID(twitterID);
-	 * User.getTwitterCredential().setTwitterOAuthAccessToken(
-	 * twitterOAuthAccessToken); s.update(User); //s.getTransaction().commit();
-	 * return true; } } else { throw new UserException("User cannot be NULL"); }
-	 * }
-	 */
+	@Override
+	public boolean updateUserFacebookCredential(User u, String facebookID,
+			String facebookOAuthAccessToken) throws EmptyStringException,
+			UserException {
+		if (u != null) {
+			if (facebookID.equals("")) {
+				throw new EmptyStringException("Facebook ID cannot be empty ");
+			} else {
+				Session s = sessionFactory.getCurrentSession(); // s.beginTransaction();
+				boolean isFacebookCreadentialAvailable = false;
+				for (SocialCredential sc : u.getCredentialsList()) {
+					if (sc instanceof FacebookCredential) {
+						u.getCredentialsList().remove(sc);
+						((FacebookCredential) sc).setFacebookID(facebookID);
+						((FacebookCredential) sc)
+								.setFacebookOAuthAccessToken(facebookOAuthAccessToken);
+						isFacebookCreadentialAvailable = true;
+						u.getCredentialsList().add(sc);
+						break;
+					}
+				}
+
+				if (isFacebookCreadentialAvailable == false) {
+					FacebookCredential fc = new FacebookCredential();
+					fc.setFacebookID(facebookID);
+					fc.setFacebookOAuthAccessToken(facebookOAuthAccessToken);
+					u.getCredentialsList().add(fc);
+				}
+
+				s.update(u);
+				// s.getTransaction().commit();
+				return true;
+			}
+		} else {
+			throw new UserException("User cannot be NULL");
+		}
+	}
+
+	@Override
+	public boolean updateUserGooglePlusCredential(User u, String goolgePlusID,
+			String googlePlusOAuthAccessToken) throws EmptyStringException,
+			UserException {
+		if (u != null) {
+			if (goolgePlusID.equals("")) {
+				throw new EmptyStringException(
+						"Google Plus ID cannot be empty ");
+			} else {
+				Session s = sessionFactory.getCurrentSession(); // s.beginTransaction();
+				boolean isGooglePlusCredentialAvailable = false;
+				for (SocialCredential sc : u.getCredentialsList()) {
+					if (sc instanceof GooglePlusCredential) {
+						u.getCredentialsList().remove(sc);
+						((GooglePlusCredential) sc)
+								.setGoolgePlusID(goolgePlusID);
+						((GooglePlusCredential) sc)
+								.setGoolgePlusOAuthAccessToken(googlePlusOAuthAccessToken);
+						isGooglePlusCredentialAvailable = true;
+						u.getCredentialsList().add(sc);
+						break;
+					}
+				}
+
+				if (isGooglePlusCredentialAvailable == false) {
+					GooglePlusCredential gc = new GooglePlusCredential();
+					gc.setGoolgePlusID(goolgePlusID);
+					gc.setGoolgePlusOAuthAccessToken(googlePlusOAuthAccessToken);
+					u.getCredentialsList().add(gc);
+				}
+				s.update(u);
+				return true;
+			}
+		} else {
+			throw new UserException("User cannot be NULL");
+		}
+	}
+
+	@Override
+	public boolean updateUserTwitterCredential(User u, String twitterID,
+			String twitterOAuthAccessToken) throws EmptyStringException,
+			UserException {
+		if (u != null) {
+			if (twitterID.equals("")) {
+				throw new EmptyStringException(
+						"Google Plus ID cannot be empty ");
+			} else {
+				Session s = sessionFactory.getCurrentSession(); // s.beginTransaction();
+				boolean isTwitterCredentialAvailable = false;
+				for (SocialCredential sc : u.getCredentialsList()) {
+					if (sc instanceof TwitterCredential) {
+						u.getCredentialsList().remove(sc);
+						((TwitterCredential) sc).setTwitterID(twitterID);
+						((TwitterCredential) sc)
+								.setTwitterOAuthAccessToken(twitterOAuthAccessToken);
+						isTwitterCredentialAvailable = true;
+						u.getCredentialsList().add(sc);
+						break;
+					}
+				}
+				if (isTwitterCredentialAvailable == false) {
+					TwitterCredential tc = new TwitterCredential();
+					tc.setTwitterID(twitterID);
+					tc.setTwitterOAuthAccessToken(twitterOAuthAccessToken);
+					u.getCredentialsList().add(tc);
+				}
+				s.update(u);
+				return true;
+			}
+		} else {
+			throw new UserException("User cannot be NULL");
+		}
+	}
+
+	@Override
+	public boolean updateUserDisplayName(User u, String displayName)
+			throws EmptyStringException, UserException {
+		if (u != null) {
+			if (displayName.equals("")) {
+				throw new EmptyStringException("Display name cannot be empty ");
+			} else {
+				Session s = sessionFactory.getCurrentSession();
+				// s.beginTransaction();
+				u.setDisplayName(displayName);
+				s.update(u);
+				// s.getTransaction().commit();
+				return true;
+			}
+		} else {
+			throw new UserException("User cannot be NULL");
+		}
+	}
+
+	@Override
+	public boolean updateUserDisplayPic(User u, String displayPicFileURI)
+			throws EmptyStringException, UserException {
+		if (u != null) {
+			if (displayPicFileURI.equals("")) {
+				throw new EmptyStringException(
+						"Display Pic file URI cannot be empty ");
+			} else {
+				Session s = sessionFactory.getCurrentSession();
+				// s.beginTransaction();
+				u.setDisplayPicFileURI(displayPicFileURI);
+				s.update(u);
+				// s.getTransaction().commit();
+				return true;
+			}
+		} else {
+			throw new UserException("User cannot be NULL");
+		}
+	}
+
+	@Override
+	public boolean addFriend(User u, User friend) throws UserException {
+		if (u == null || friend == null) {
+			throw new UserException("User or Friend cannot be NULL");
+		} else {
+			Session s = sessionFactory.getCurrentSession();
+			// s.beginTransaction();
+			u.getFriendsList().add(friend);
+			friend.getFriendsList().add(u);
+			s.update(u);
+			s.update(friend);
+			// s.getTransaction().commit();
+			return true;
+		}
+	}
+
+	// @Override
+	// public boolean addInBoxPacket(User u, Packet packet) throws UserException
+	// {
+	// if (u == null || packet == null) {
+	// throw new UserException("User or Packet cannot be NULL");
+	// } else {
+	// Session s = sessionFactory.getCurrentSession();
+	// // s.beginTransaction();
+	// u.getInBoxPacketList().add(packet);
+	// s.update(u);
+	// // s.getTransaction().commit();
+	// return true;
+	// }
+	// }
+	//
+	// @Override
+	// public boolean addOutBoxPacket(User u, Packet packet) throws
+	// UserException {
+	// if (u == null || packet == null) {
+	// throw new UserException("User or Packet cannot be NULL");
+	// } else {
+	// Session s = sessionFactory.getCurrentSession();
+	// // s.beginTransaction();
+	// u.getOutBoxPacketList().add(packet);
+	// s.update(u);
+	// // s.getTransaction().commit();
+	// return true;
+	// }
+	// }
 
 }

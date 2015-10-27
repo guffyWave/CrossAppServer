@@ -57,43 +57,55 @@ public interface UserDAO {
 			throws EmptyStringException, PhoneNumberException;
 
 	// delete user
-	public boolean deleteUser(User User) throws UserException;
+	public boolean deleteUser(User u) throws UserException;
 
 	// update user for emailId
-	public boolean updateUser(User User) throws UserException;
+	public boolean updateUser(User u) throws UserException;
 
 	// update user for emailId
-	public boolean updateUserEmailID(User User, String emailID)
+	public boolean updateUserEmailID(User u, String emailID)
 			throws EmptyStringException, EmailIDException, UserException;
 
 	// update user for phoneNumber
-	public boolean updateUserPhoneNumber(User User, String phoneNumber)
+	public boolean updateUserPhoneNumber(User u, String phoneNumber)
 			throws EmptyStringException, PhoneNumberException, UserException;
 
 	// update user for gcmID
-	public boolean updateUserGCMID(User User, String gcmID)
+	public boolean updateUserGCMID(User u, String gcmID)
 			throws EmptyStringException, UserException;
 
-	/*
-	 * // update user facebook credential public boolean
-	 * updateUserFacebookCredential(User User, String facebookID, String
-	 * facebookOAuthAccessToken) throws EmptyStringException, UserException;
-	 * 
-	 * // update user googleplus credential public boolean
-	 * updateUserGooglePlusCredential(User User, String goolgePlusID, String
-	 * googlePlusOAuthAccessToken) throws EmptyStringException, UserException;
-	 * 
-	 * // update user twitter credential public boolean
-	 * updateUserTwitterCredential(User User, String twitterID, String
-	 * twitterOAuthAccessToken) throws EmptyStringException, UserException;
-	 */
+	// update user for Display Name
+	public boolean updateUserDisplayName(User u, String displayName)
+			throws EmptyStringException, UserException;
 
-	// // / add packet to inbox
-	// public boolean addInBoxPacket(User User,
-	// ApkSharePacket apkSharePacket);
-	//
-	// // / add packet to outbox
-	// public boolean addOutBoxPacket(User User,
-	// ApkSharePacket apkSharePacket);
+	// update user for Display Pic
+	public boolean updateUserDisplayPic(User u, String displayPicFileURI)
+			throws EmptyStringException, UserException;
+
+	// update user for Display Pic
+	public boolean addFriend(User u, User friend) throws UserException;
+
+	// update user facebook credential public boolean
+	public boolean updateUserFacebookCredential(User u, String facebookID,
+			String facebookOAuthAccessToken) throws EmptyStringException,
+			UserException;
+
+	// update user googleplus credential public boolean
+	public boolean updateUserGooglePlusCredential(User u, String goolgePlusID,
+			String googlePlusOAuthAccessToken) throws EmptyStringException,
+			UserException;
+
+	// update user twitter credential public boolean
+	public boolean updateUserTwitterCredential(User u, String twitterID,
+			String twitterOAuthAccessToken) throws EmptyStringException,
+			UserException;
+
+//	// / add packet to inbox
+//	public boolean addInBoxPacket(User user, Packet packet)
+//			throws UserException;
+//
+//	// / add packet to outbox
+//	public boolean addOutBoxPacket(User user, Packet packet)
+//			throws UserException;
 
 }
