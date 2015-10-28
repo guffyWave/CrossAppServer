@@ -27,8 +27,21 @@
 
 	<form action="/createMessagePacket" method="post">
 		From ID <input type="text" name="fromUserID"><br /> To ID <input
-			type="text" name="toUserID"> <br /> Message <input type="text"
-			name="message"><br /> <input type="submit">
+			type="text" name="toUserID"> <br /> Message <input
+			type="text" name="message"><br /> <input type="submit">
+	</form>
+
+
+
+	<h1>Send File Packet to User</h1>
+
+	<form action="/createFilePacket" method="post" enctype="multipart/form-data">
+		From ID <input type="text" name="fromUserID"><br /> To ID <input
+			type="text" name="toUserID"> <br /> Package Name <input
+			type="text" name="pakageName">
+		<br /> App Version Name <input type="text" name="appVersionName"><br />
+		APK File <input type="file" name="file"><br /> <input
+			type="submit">
 	</form>
 
 

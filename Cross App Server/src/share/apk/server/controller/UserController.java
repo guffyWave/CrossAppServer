@@ -19,14 +19,18 @@ import share.apk.server.dto.FacebookCredential;
 import share.apk.server.dto.GooglePlusCredential;
 import share.apk.server.dto.Message;
 import share.apk.server.dto.MessagePacket;
+import share.apk.server.dto.Packet;
+import share.apk.server.dto.PacketStatus;
 import share.apk.server.dto.TwitterCredential;
 import share.apk.server.dto.User;
 import share.apk.server.exceptions.PacketException;
 import share.apk.server.exceptions.UserException;
+import share.apk.server.jsonResponse.MessagePacketResult;
+import share.apk.server.jsonResponse.UserResult;
 import share.apk.server.management.ServerResult;
 
 @Controller
-public class DummyController {
+public class UserController {
 
 	@Autowired
 	UserDAO userDAO;
@@ -41,9 +45,20 @@ public class DummyController {
 		User u = null;
 		try {
 			u = userDAO.getUser(userID);
+
+			// ---->> setting up fromUser json response
+			UserResult userResult = new UserResult();
+			userResult.setId(u.getId());
+			userResult.setDisplayName(u.getDisplayName());
+			userResult.setDisplayPicFileURI(u.getDisplayPicFileURI());
+			userResult.setEmailID(u.getEmailID());
+			userResult.setGcmID(u.getGcmID());
+			userResult.setPhoneNumber(u.getPhoneNumber());
+			userResult.setUserActivationStatus(u.isUserActivationStatus());
+
 			map.put("result", ServerResult.SUCCESS);
 			map.put("messsage", "User Returned Successfully");
-			map.put("user", u);
+			map.put("user", userResult);
 		} catch (LazyInitializationException e) {
 			map.put("result", ServerResult.EXCEPTION);
 			map.put("messsage", "Exception " + e.getMessage());
@@ -99,55 +114,6 @@ public class DummyController {
 		} catch (UserException e) {
 			map.put("result", ServerResult.EXCEPTION);
 			map.put("messsage", "User exception " + e.getMessage());
-			e.printStackTrace();
-		} catch (Exception e) {
-			map.put("result", ServerResult.EXCEPTION);
-			map.put("messsage", "Exception " + e.getMessage());
-			e.printStackTrace();
-		}
-
-		return map;
-	}
-
-	@RequestMapping(value = "/createMessagePacket", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-	private @ResponseBody
-	Map<String, Object> createMessage(
-			@RequestParam("fromUserID") Long fromUserID,
-			@RequestParam("toUserID") Long toUserID,
-			@RequestParam("message") String message) throws Exception {
-
-		Map<String, Object> map = new LinkedHashMap<String, Object>();
-
-		// --------------->> Creating a User
-		try {
-			User fromUser = userDAO.getUser(fromUserID);
-			User toUser = userDAO.getUser(toUserID);
-
-			Message m = new Message();
-			m.setMessage(message);
-
-			MessagePacket messagePacket = new MessagePacket();
-			messagePacket.setFromUser(fromUser);
-			messagePacket.setToUser(toUser);
-			messagePacket.setMessage(m);
-
-			fromUser.getOutBoxPacketList().add(messagePacket);
-			toUser.getInBoxPacketList().add(messagePacket);
-
-			packetDAO.storePacket(messagePacket);
-			userDAO.updateUser(fromUser);
-			userDAO.updateUser(toUser);
-			// /------->> Result
-			map.put("result", ServerResult.SUCCESS);
-			map.put("messsage", "Successfully stored message packet");
-			map.put("message", messagePacket);
-		} catch (UserException e) {
-			map.put("result", ServerResult.EXCEPTION);
-			map.put("messsage", "User exception " + e.getMessage());
-			e.printStackTrace();
-		} catch (PacketException e) {
-			map.put("result", ServerResult.EXCEPTION);
-			map.put("messsage", "Packet exception " + e.getMessage());
 			e.printStackTrace();
 		} catch (Exception e) {
 			map.put("result", ServerResult.EXCEPTION);
