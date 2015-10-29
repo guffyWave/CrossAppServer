@@ -35,18 +35,24 @@
 
 	<h1>Send File Packet to User</h1>
 
-	<form action="/createFilePacket" method="post" enctype="multipart/form-data">
+	<form action="/createFilePacket" method="post"
+		enctype="multipart/form-data">
 		From ID <input type="text" name="fromUserID"><br /> To ID <input
 			type="text" name="toUserID"> <br /> Package Name <input
-			type="text" name="pakageName">
-		<br /> App Version Name <input type="text" name="appVersionName"><br />
-		App Version Code <input type="text" name="versionCode"><br />
-		Tags <input type="text" name="tags"><br />
-		Time Stamp <input type="text" name="timeStamp"><br />
-		APK File <input type="file" name="file"><br /> <input
-			type="submit">
+			type="text" name="pakageName"> <br /> App Version Name <input
+			type="text" name="appVersionName"><br /> App Version Code <input
+			type="text" name="versionCode"><br /> Tags <input
+			type="text" name="tags"><br /> Time Stamp <input type="text"
+			name="timeStamp"><br /> APK File <input type="file"
+			name="file"><br /> <input type="submit">
 	</form>
 
+	<br>
+	<h1>Update GCM ID</h1>
+	<form action="/updateGCMID" method="post">
+		User ID <input type="text" name="userID"><br /> GCM ID <input
+			type="text" name="gcmID"> <input type="submit">
+	</form>
 
 </body>
 </html>
