@@ -90,6 +90,10 @@
 
 
 
+	<!-- GCM Server -->
+	<bean id="gcmServer" class="share.apk.server.communications.GCMServer">
+	</bean>
+
 
 
 	<!-- OpenSessionInViewInterceptor Interceptor NOT WORKING -->

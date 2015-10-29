@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import share.apk.server.communications.GCMServer;
 import share.apk.server.dao.FileDAO;
 import share.apk.server.dao.PacketDAO;
 import share.apk.server.dao.UserDAO;
@@ -43,13 +44,15 @@ public class PacketController {
 	PacketDAO packetDAO;
 	@Autowired
 	FileDAO fileDAO;
+	@Autowired
+	GCMServer gcmServer;
 
 	GoogleCloudStorageService gcss;
 
 	private static final Logger logger = Logger
 			.getLogger(PacketController.class.getName());
 
-	@RequestMapping(value = "/createMessagePacket", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+	@RequestMapping(value = "/sendMessage", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	private @ResponseBody
 	Map<String, Object> createMessagePacket(
 			@RequestParam("fromUserID") Long fromUserID,
@@ -78,6 +81,14 @@ public class PacketController {
 			packetDAO.storePacket(messagePacket);
 			userDAO.updateUser(fromUser);
 			userDAO.updateUser(toUser);
+
+			List<String> gcmIdList = new ArrayList<>();
+			gcmIdList.add(toUser.getGcmID());
+
+			// ------->> Sending the message--------->>
+			gcmServer.sendMessageToDevice(gcmIdList, fromUser.getDisplayName(),
+					message, "");
+
 			// /------->> Result
 			map.put("result", ServerResult.SUCCESS);
 			map.put("messsage", "Successfully stored message packet");
@@ -154,6 +165,14 @@ public class PacketController {
 
 				fromUser.getOutBoxPacketList().add(filePacket);
 				toUser.getInBoxPacketList().add(filePacket);
+
+				List<String> gcmIdList = new ArrayList<>();
+				gcmIdList.add(toUser.getGcmID());
+
+				// ------->> Sending the file message--------->>
+				gcmServer.sendMessageToDevice(gcmIdList,
+						fromUser.getDisplayName(), fromUser.getDisplayName()
+								+ "has sent " + apkFile.getFileName(), "");
 
 				fileDAO.addFile(apkFile);
 				packetDAO.storePacket(filePacket);

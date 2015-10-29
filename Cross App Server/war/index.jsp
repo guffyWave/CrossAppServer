@@ -25,7 +25,7 @@
 
 	<h1>Add Message Packet to User</h1>
 
-	<form action="/createMessagePacket" method="post">
+	<form action="/sendMessage" method="post">
 		From ID <input type="text" name="fromUserID"><br /> To ID <input
 			type="text" name="toUserID"> <br /> Message <input
 			type="text" name="message"><br /> <input type="submit">

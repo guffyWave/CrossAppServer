@@ -15,5 +15,6 @@
 	<classpathentry kind="con" path="com.google.gdt.eclipse.managedapis.MANAGED_API_CONTAINER/storage-v1r50lv1.18.0-rc"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/CloudStorageLib"/>
 	<classpathentry kind="lib" path="/home/gufran/Libraries/Commons IO/commons-io-2.4/commons-io-2.4.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/GCM Server"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

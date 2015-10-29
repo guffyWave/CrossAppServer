@@ -19,6 +19,12 @@ public class MainTest {
 		// (better to make a library and them)
 		// 3. Add some class files from https://github.com/kernel164/gmultipart
 		// 4. Add gson, commons-io and commons fileupload
+
+		// /------------>> For GCM
+		// Add gcm-server.jar
+		// Add json-simple.jar
+		//
+		//
 	}
 
 }
