@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import share.apk.server.dao.FileDAO;
 import share.apk.server.dao.PacketDAO;
 import share.apk.server.dao.UserDAO;
 import share.apk.server.dto.FacebookCredential;
@@ -36,6 +37,8 @@ public class UserController {
 	UserDAO userDAO;
 	@Autowired
 	PacketDAO packetDAO;
+	@Autowired
+	FileDAO fileDAO;
 
 	@RequestMapping(value = "/getUser/{userID}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public @ResponseBody

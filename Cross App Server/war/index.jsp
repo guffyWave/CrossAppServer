@@ -40,6 +40,9 @@
 			type="text" name="toUserID"> <br /> Package Name <input
 			type="text" name="pakageName">
 		<br /> App Version Name <input type="text" name="appVersionName"><br />
+		App Version Code <input type="text" name="versionCode"><br />
+		Tags <input type="text" name="tags"><br />
+		Time Stamp <input type="text" name="timeStamp"><br />
 		APK File <input type="file" name="file"><br /> <input
 			type="submit">
 	</form>

@@ -16,19 +16,20 @@ import share.apk.server.exceptions.EmptyStringException;
 import share.apk.server.exceptions.FileException;
 import share.apk.server.exceptions.NegativeValueException;
 import share.apk.server.exceptions.NoSuchIDException;
+
 @Repository
+@Transactional
 public class FileDAOImpl implements FileDAO {
 
 	List<String> errorMessages;
 	SessionFactory sessionFactory;
 
-	public FileDAOImpl(List<String> errorMessages, SessionFactory sessionFactory) {
+	public FileDAOImpl(SessionFactory sessionFactory) {
 		this.errorMessages = new ArrayList<>();
 		this.sessionFactory = sessionFactory;
 	}
 
 	@Override
-	@Transactional
 	public File getFile(long id) throws NoSuchIDException,
 			NegativeValueException, FileException {
 		if (id <= 0) {
@@ -46,7 +47,6 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
-	@Transactional
 	public File getFile(String fileURI) throws EmptyStringException,
 			FileException {
 		if (fileURI.equals("")) {
@@ -66,7 +66,6 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean addFile(File File) throws FileException {
 		if (File != null) {
 			Session s = sessionFactory.getCurrentSession();
@@ -80,7 +79,6 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean updateFileName(File File, String newFileName)
 			throws EmptyStringException, FileException {
 		if (File != null) {
@@ -100,7 +98,6 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean updateFileURI(File File, String newFileURI)
 			throws FileException, EmptyStringException {
 		if (File != null) {
@@ -121,7 +118,6 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean updateFileSize(File File, long newFileSize)
 			throws FileException, NegativeValueException {
 		if (File != null) {
@@ -142,7 +138,6 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean deleteFile(File File) throws FileException {
 		if (File != null) {
 			Session s = sessionFactory.getCurrentSession();

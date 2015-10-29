@@ -36,7 +36,6 @@ public class UserDAOImpl implements UserDAO {
 	public UserDAOImpl(SessionFactory sessionFactory) {
 		this.errorMessages = new ArrayList<>();
 		this.sessionFactory = sessionFactory;
-
 	}
 
 	@Override
