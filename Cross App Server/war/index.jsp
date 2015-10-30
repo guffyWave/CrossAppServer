@@ -14,6 +14,8 @@
 		<input type="submit" value="Hello" />
 	</form>
 
+
+
 	<h1>Add User</h1>
 
 	<form action="/createUser" method="post" enctype="multipart/form-data">
@@ -64,6 +66,11 @@
 		User ID <input type="text" name="userID"><br /> GCM ID <input
 			type="text" name="gcmID"> <input type="submit">
 	</form>
+
+	<br>
+
+	<h3>Fetch File</h3>
+	http://localhost:8889/fetchFile?path=CrossApp/User4/ProfilePic/6886505.jpg
 
 </body>
 </html>

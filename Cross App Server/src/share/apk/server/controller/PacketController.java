@@ -149,7 +149,8 @@ public class PacketController {
 				apkFile.setPackageName(packageName);
 				apkFile.setAppVersionName(appVersionName);
 				apkFile.setFileSize(multipartFile.getSize());
-				apkFile.setFileURI("/some/blobstore/filelocation");
+				apkFile.setFileURI(inBoxPath + "/"
+						+ multipartFile.getOriginalFilename());
 				apkFile.setVersionCode(1L);
 				List<String> tagsList = new ArrayList<>();
 				// /----->> preparing tag list
@@ -269,5 +270,4 @@ public class PacketController {
 		return map;
 	}
 
-	
 }
