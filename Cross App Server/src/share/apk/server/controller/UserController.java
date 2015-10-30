@@ -228,11 +228,11 @@ public class UserController {
 		return map;
 	}
 
-	@RequestMapping(value = "/setFriendship/{oneUserID}/{secondUserID}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	@RequestMapping(value = "/setFriendship", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	public @ResponseBody
 	Map<String, Object> setFriendship(
-			@PathVariable("oneUserID") Long oneUserID,
-			@PathVariable("secondUserID") Long secondUserID) {
+			@RequestParam(value = "oneUserID", required = true) Long oneUserID,
+			@RequestParam(value = "secondUserID", required = true) Long secondUserID) {
 		Map<String, Object> map = new LinkedHashMap<String, Object>();
 
 		User oneUser = null;
