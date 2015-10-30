@@ -132,6 +132,8 @@ public class PacketController {
 				User fromUser = userDAO.getUser(fromUserID);
 				User toUser = userDAO.getUser(toUserID);
 
+				
+				
 				String inBoxPath = FilePathConstants.getInstance(toUserID).INBOX_PATH;
 
 				gcss = new GoogleCloudStorageService();

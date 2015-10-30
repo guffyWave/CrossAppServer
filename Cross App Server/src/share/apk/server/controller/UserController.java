@@ -103,10 +103,12 @@ public class UserController {
 		try {
 
 			u = new User();
+			
+			
 
 			if (mobileNumber.equals("") && userMailID.equals("")) {
 				throw new EmptyStringException(
-						"At least one Mobile number or Email must be provided");
+						"At least one  Mobile number or Email must be provided ");
 			}
 
 			if (!userMailID.equals("")) {
@@ -330,6 +332,4 @@ public class UserController {
 		return map;
 	}
 
-	
-	
 }
