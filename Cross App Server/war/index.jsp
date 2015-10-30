@@ -16,14 +16,25 @@
 
 	<h1>Add User</h1>
 
-	<form action="/createUser" method="post">
+	<form action="/createUser" method="post" enctype="multipart/form-data">
 		Email ID <input type="text" name="emailID"><br /> GCM ID <input
 			type="text" name="gcmID"> <br /> Mobile Number <input
 			type="text" name="mobileNumber"><br /> Display Name <input
-			type="text" name="displayName"><br /> <input type="submit">
+			type="text" name="displayName"><br /> Profile Pic <input
+			type="file" name="profilePic"><br /> <input type="submit">
 	</form>
 
-	<h1>Add Message Packet to User</h1>
+	<h1>Update User</h1>
+	<form action="/updateUser" method="post" enctype="multipart/form-data">
+		User ID <input type="text" name="userID"><br /> Email ID <input
+			type="text" name="emailID"><br /> GCM ID <input type="text"
+			name="gcmID"> <br /> Mobile Number <input type="text"
+			name="mobileNumber"><br /> Display Name <input type="text"
+			name="displayName"><br /> Profile Pic <input type="file"
+			name="profilePic"><br /> <input type="submit">
+	</form>
+
+	<h1>Send Message Packet to User</h1>
 
 	<form action="/sendMessage" method="post">
 		From ID <input type="text" name="fromUserID"><br /> To ID <input

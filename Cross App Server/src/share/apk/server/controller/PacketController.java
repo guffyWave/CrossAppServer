@@ -33,6 +33,7 @@ import share.apk.server.exceptions.PacketException;
 import share.apk.server.exceptions.UserException;
 import share.apk.server.jsonResponse.MessagePacketResult;
 import share.apk.server.jsonResponse.UserResult;
+import share.apk.server.management.FilePathConstants;
 import share.apk.server.management.ServerResult;
 import share.apk.service.GoogleCloudStorageService;
 
@@ -126,17 +127,21 @@ public class PacketController {
 
 		try {
 			if (!multipartFile.isEmpty()) {
+
+				// /--->> creating user
+				User fromUser = userDAO.getUser(fromUserID);
+				User toUser = userDAO.getUser(toUserID);
+
+				String inBoxPath = FilePathConstants.getInstance(toUserID).INBOX_PATH;
+
 				gcss = new GoogleCloudStorageService();
-				gcss.init(multipartFile.getOriginalFilename(),
+				gcss.init(
+						inBoxPath + "/" + multipartFile.getOriginalFilename(),
 						multipartFile.getContentType());
 				gcss.storeFile(multipartFile.getBytes());
 				gcss.destroy();
 				logger.info("You successfully uploaded file="
 						+ multipartFile.getName());
-
-				// /--->> creating user
-				User fromUser = userDAO.getUser(fromUserID);
-				User toUser = userDAO.getUser(toUserID);
 
 				// /--->> creating file
 				APKFile apkFile = new APKFile();
@@ -172,7 +177,7 @@ public class PacketController {
 				// ------->> Sending the file message--------->>
 				gcmServer.sendMessageToDevice(gcmIdList,
 						fromUser.getDisplayName(), fromUser.getDisplayName()
-								+ "has sent " + apkFile.getFileName(), "");
+								+ " has sent " + apkFile.getFileName(), "");
 
 				fileDAO.addFile(apkFile);
 				packetDAO.storePacket(filePacket);
